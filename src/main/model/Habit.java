@@ -16,7 +16,7 @@ public abstract class Habit {
         longGoal = target;
         shortGoal = longGoal / intermediates; 
         progress = 0;
-        remaining = longGoal - progress;
+        remaining = longGoal;
         reward = rewardMessage;
     }
 
@@ -27,31 +27,32 @@ public abstract class Habit {
     //MODIFIES: This
     //EFFECTS: resets the habit progress to 0
     public void resetProgress() {
-        //stub
+        progress = 0;
+        remaining = longGoal; 
     }
 
     public String getTitle() {
-        return null; //stub
+        return title; 
     }
 
     public int getLongGoal() {
-        return null; //stub
+        return longGoal; 
     }
 
     public int getShortGoal() {
-        return null; //stub
+        return shortGoal; 
     }
 
     public int getProgress() {
-        return null; //stub
+        return progress; 
     }
 
     public String getReward() {
-        return null; //stub
+        return reward; 
     }
 
     public int getRemainingProgress() {
-        return null; //stub
+        return remaining; 
     }
     
 
