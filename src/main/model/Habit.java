@@ -1,7 +1,10 @@
 package model;
 
-// Represents a Habit, with a title, a long term goal (# of times recorded), a short-term goals (intermediate milestones), 
-// progress (# times habit is completed), a remaining progress (habit recordings left til long goal is accomplished) 
+// Represents a Habit, with a title, 
+//a long term goal (# of times recorded),
+// a short-term goals (intermediate milestones), 
+// progress (# times habit is completed), a
+// remaining progress (habit recordings left til long goal is accomplished) 
 // and a reward message.
 public abstract class Habit {
     protected String title;
@@ -10,7 +13,8 @@ public abstract class Habit {
     protected int progress;
     protected int remaining;
     protected String reward;
-
+    
+    //REQUIRES: intermediates <= target
     public Habit(String habitName, int target, int intermediates, String rewardMessage) {
         title = habitName;
         longGoal = target;
