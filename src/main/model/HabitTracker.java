@@ -10,14 +10,15 @@ public class HabitTracker {
     private ArrayList<Habit> habits;
     private ArrayList<Habit> completed;
     private ArrayList<Habit> todo;
-    private LocalDate date;
+    private LocalDate completionDate;
 
 
     public HabitTracker() {
         habits = new ArrayList<>();
         completed = new ArrayList<>();
         todo = new ArrayList<>();
-        date = LocalDate.now();
+        completionDate = LocalDate.now();
+        
     }
 
     //MODIFIES: this
@@ -52,13 +53,18 @@ public class HabitTracker {
     //EFFECTS: move all the completed habits back to the todo,
     // in the order found in habits. 
     public void resetCompletedHabits() {
-        //stub
+        completed.clear();
+        todo.clear();
+        todo.addAll(habits);
     }
     
     //MODIFIES: this
-    //EFFECTS: resets the todo list each day
+    //EFFECTS: resets the todo list each new day
     public void dailyReset() {
-        //stub
+        if (!completionDate.equals(LocalDate.now())) {
+            resetCompletedHabits();            
+        }
+        completionDate = LocalDate.now();
     }
 
     public ArrayList<Habit> getAllHabits() {
@@ -73,13 +79,13 @@ public class HabitTracker {
         return new ArrayList<>(todo);
     }
 
-    public LocalDate getDate() {
-        return null;//stub   
+    public LocalDate getCompletionDate() {
+        return completionDate;  
     }
     //MODIFIES: this
-    //EFFECTS: Increased date by one day (For testing purposes)
-    public void advanceOneDay() {
-        //stub
+    //EFFECTS: Decreases the completionDate by one day to simulate today being a new day (For testing purposes)
+    public void changeDate() {
+        completionDate = completionDate.minusDays(1);
     }
 
 
