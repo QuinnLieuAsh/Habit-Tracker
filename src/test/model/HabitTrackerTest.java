@@ -2,8 +2,6 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -87,7 +85,7 @@ public class HabitTrackerTest {
         assertEquals(habit3, testTracker.getCompleted().get(0));
         assertEquals(habit2, testTracker.getCompleted().get(1));
         assertEquals(habit1, testTracker.getTodo().get(0));
-        testTracker.markCompleted(habit3);
+        testTracker.markCompleted(habit1);
         assertTrue(testTracker.getTodo().isEmpty());
         assertEquals(3, testTracker.getCompleted().size());
         assertEquals(habit3, testTracker.getCompleted().get(0));
@@ -138,7 +136,7 @@ public class HabitTrackerTest {
         testTracker.addHabit(habit3);
         testTracker.markCompleted(habit2);
         testTracker.removeHabit(habit1);
-        assertEquals(1, testTracker.getAllHabits().size());
+        assertEquals(2, testTracker.getAllHabits().size());
         assertEquals(1, testTracker.getCompleted().size());
         assertEquals(1, testTracker.getTodo().size());
         testTracker.removeHabit(habit2);
