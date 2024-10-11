@@ -17,6 +17,7 @@ public class HabitTracker {
         habits = new ArrayList<>();
         completed = new ArrayList<>();
         todo = new ArrayList<>();
+        date = LocalDate.now();
     }
 
     //MODIFIES: this
@@ -72,6 +73,14 @@ public class HabitTracker {
         return new ArrayList<>(todo);
     }
 
+    public LocalDate getDate() {
+        return null;//stub   
+    }
+    //MODIFIES: this
+    //EFFECTS: Increased date by one day (For testing purposes)
+    public void advanceOneDay() {
+        //stub
+    }
 
 
 }
