@@ -2,6 +2,8 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -147,5 +149,52 @@ public class HabitTrackerTest {
         assertTrue(testTracker.getAllHabits().isEmpty());
     }
 
+    @Test 
+    void testResetCompletedHabits() {
+        testTracker.addHabit(habit1);
+        testTracker.addHabit(habit2);
+        testTracker.addHabit(habit3);
+        testTracker.markCompleted(habit2);
+        testTracker.markCompleted(habit1);
+        testTracker.markCompleted(habit3);
+        testTracker.resetCompletedHabits();
+        assertEquals(3, testTracker.getTodo().size());
+        assertEquals(habit1, testTracker.getTodo().get(0));
+        assertEquals(habit2, testTracker.getTodo().get(1));
+        assertEquals(habit3, testTracker.getTodo().get(2));
+    }
 
+
+    @Test
+    void testDailyResetNewDay() {
+        testTracker.addHabit(habit1);
+        testTracker.addHabit(habit2);
+        testTracker.addHabit(habit3);
+        testTracker.markCompleted(habit2);
+        testTracker.markCompleted(habit1);
+        testTracker.markCompleted(habit3);
+        testTracker.nextDay();
+        testTracker.dailyReset();
+        assertEquals(3, testTracker.getTodo().size());
+        assertEquals(habit1, testTracker.getTodo().get(0));
+        assertEquals(habit2, testTracker.getTodo().get(1));
+        assertEquals(habit3, testTracker.getTodo().get(2));
+        assertEquals(LocalDate.now().plusDays(1), testTracker.getDate());
+        }
+
+        @Test
+        void testDailyResetSameDay() {
+        testTracker.addHabit(habit1);
+        testTracker.addHabit(habit2);
+        testTracker.addHabit(habit3);
+        testTracker.markCompleted(habit2);
+        testTracker.markCompleted(habit1);
+        testTracker.markCompleted(habit3);
+        testTracker.dailyReset();
+        assertEquals(0, testTracker.getTodo().size());
+        assertEquals(habit2, testTracker.getCompleted().get(0));
+        assertEquals(habit1, testTracker.getCompleted().get(1));
+        assertEquals(habit3, testTracker.getCompleted().get(2));
+        assertEquals(LocalDate.now(), testTracker.getDate());
+        }
 }
