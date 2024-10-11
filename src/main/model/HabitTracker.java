@@ -1,14 +1,16 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
-// Tracks all a users habits, and provides a list of habits that haven't been 
+// Tracks all a users habits, the date, and provides a list of habits that haven't been 
 // completed today as well as a list of completed habits for the day. 
 public class HabitTracker {
 
     private ArrayList<Habit> habits;
     private ArrayList<Habit> completed;
     private ArrayList<Habit> todo;
+    private LocalDate date;
 
 
     public HabitTracker() {
@@ -44,6 +46,18 @@ public class HabitTracker {
         habits.remove(h);
         completed.remove(h);
         todo.remove(h);
+    }
+    //MODIFIES: this
+    //EFFECTS: move all the completed habits back to the todo,
+    // in the order found in habits. 
+    public void resetCompletedHabits() {
+        //stub
+    }
+    
+    //MODIFIES: this
+    //EFFECTS: resets the todo list each day
+    public void dailyReset() {
+        //stub
     }
 
     public ArrayList<Habit> getAllHabits() {
