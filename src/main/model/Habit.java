@@ -22,7 +22,7 @@ public abstract class Habit {
 
     //MODIFIES: This
     //EFFECTS: increases the progress of habit
-    public abstract void recordHabit();
+    public abstract void addProgress();
 
     //MODIFIES: This
     //EFFECTS: resets the habit progress to 0

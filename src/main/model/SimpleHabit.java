@@ -10,9 +10,10 @@ public class SimpleHabit extends Habit {
     @Override 
     //MODIFIES: This
     //EFFECTS: increases the progress of habit
-    public void recordHabit() {
+    public void addProgress() {
         progress++;
         remaining--;
+        //TODO: run markCompleted on this bad boy. 
     }
 
 
