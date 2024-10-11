@@ -49,6 +49,7 @@ public class HabitTracker {
         completed.remove(h);
         todo.remove(h);
     }
+
     //MODIFIES: this
     //EFFECTS: move all the completed habits back to the todo,
     // in the order found in habits. 
@@ -82,6 +83,7 @@ public class HabitTracker {
     public LocalDate getCompletionDate() {
         return completionDate;  
     }
+    
     //MODIFIES: this
     //EFFECTS: Decreases the completionDate by one day to simulate today being a new day (For testing purposes)
     public void changeDate() {
