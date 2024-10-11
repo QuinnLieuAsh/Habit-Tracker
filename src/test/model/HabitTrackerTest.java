@@ -173,13 +173,13 @@ public class HabitTrackerTest {
         testTracker.markCompleted(habit2);
         testTracker.markCompleted(habit1);
         testTracker.markCompleted(habit3);
-        testTracker.nextDay();
+        testTracker.changeDate();
         testTracker.dailyReset();
         assertEquals(3, testTracker.getTodo().size());
         assertEquals(habit1, testTracker.getTodo().get(0));
         assertEquals(habit2, testTracker.getTodo().get(1));
         assertEquals(habit3, testTracker.getTodo().get(2));
-        assertEquals(LocalDate.now().plusDays(1), testTracker.getDate());
+        assertEquals(LocalDate.now(), testTracker.getCompletionDate());
         }
 
         @Test
@@ -195,6 +195,6 @@ public class HabitTrackerTest {
         assertEquals(habit2, testTracker.getCompleted().get(0));
         assertEquals(habit1, testTracker.getCompleted().get(1));
         assertEquals(habit3, testTracker.getCompleted().get(2));
-        assertEquals(LocalDate.now(), testTracker.getDate());
+        assertEquals(LocalDate.now(), testTracker.getCompletionDate());
         }
 }
