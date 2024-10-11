@@ -13,7 +13,12 @@ public class SimpleHabit extends Habit {
     public void addProgress() {
         progress++;
         remaining--;
-        //TODO: run markCompleted on this bad boy. 
+        if (progress > longGoal) {
+            progress = 0;
+            remaining = longGoal;
+            progress++;
+            remaining--;
+        }
     }
 
 
