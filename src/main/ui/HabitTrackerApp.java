@@ -1,38 +1,43 @@
 package ui;
 
-import model.HabitTracker;
+import model.Habit;
 
+import model.HabitTracker;
+import model.SimpleHabit;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 //Habit Tracker Application
 public class HabitTrackerApp {
     private Scanner input;
     private HabitTracker habits;
-    private int habitIndex;
-    private boolean keeprunning = true;
+    private int habitIndex = 0;
+    private boolean keeprunning;
 
-    //EFFECTS: Runs HabitTracker App
+    // EFFECTS: Runs HabitTracker App
     public HabitTrackerApp() {
         runHabitTracker();
     }
 
-    //MODIFIES: this
-    //EFFECTS: processes user input
+    // MODIFIES: this
+    // EFFECTS: processes user input
     public void runHabitTracker() {
-        int command = 0;
+        int command;
+        keeprunning = true;
 
         init();
         while (keeprunning) {
-        startScreen();
-        command = input.nextInt();
-        processMenuCommand(command);
+            habits.dailyReset();
+            startScreen();
+            command = input.nextInt();
+            processMenuCommand(command);
         }
-        
-        
+
     }
 
-    //MODIFIES: this
-    //EFFECTS: processes user commands for start screen
+    // MODIFIES: this
+    // EFFECTS: processes user commands for start screen
     public void processMenuCommand(int decision) {
         switch (decision) {
             case 1:
@@ -41,112 +46,291 @@ public class HabitTrackerApp {
             case 2:
                 displayTodo();
                 break;
-            case 3: 
+            case 3:
                 displayCompleted();
                 break;
             case 4:
                 newHabit();
                 break;
             case 5:
-                displayOverallProgress();
-                break;
-            case 6:
                 newDay();
                 break;
-            case 7:
+            case 6:
                 quitApp();
-                break;    
+                break;
             default:
                 System.out.println("Invalid input. Please selected again.");
         }
     }
 
-    //EFFECTS: shows all options available to user
+    // EFFECTS: shows all options available to user
     public void startScreen() {
-        System.out.println("\nWelcome to you personal habit tracker!\\n" + "Please select one of the options below\n");
+        System.out.println("\nWelcome to you personal habit tracker!\n" + "Please select one of the options below\n");
         System.out.println("\n\t1. View habits");
         System.out.println("\t2. View TODO habits");
         System.out.println("\t3. View completed habits");
         System.out.println("\t4. Create new habit");
-        System.out.println("\t5. Get progress report");
-        System.out.println("\t6. New day (testing purposes)");
-        System.out.println("\t7. Quit");
+        System.out.println("\t5. New day (testing purposes)");
+        System.out.println("\t6. Quit");
     }
 
-    //EFFECTS: intitializes the HabitTracker
+    // EFFECTS: intitializes the HabitTracker
     public void init() {
         habits = new HabitTracker();
         input = new Scanner(System.in);
         input.useDelimiter("\r?\n|\r");
     }
 
-    //EFFECTS: displays the options available for one habit 
-    public void habitOptions() {
-        //stub
-        //TODO: Options: 1. Record Habit 2. Edit Habit       
+    // EFFECTS: displays habit and the options available for one habit
+    public void viewHabit(ArrayList<Habit> habitList) {
+        if (habitList.isEmpty()) {
+            System.out.println("You have no habits. Please create some.");
+            return;
+        }
+
+        viewHabitOptions();
+        int command = 0;
+        Habit currentHabit;
+        while (command != 5) {
+            currentHabit = habitList.get(habitIndex);
+            displayHabitInfo(currentHabit);
+            command = input.nextInt();
+            processHabitCommand(command, habitList);
+        }
+        habitIndex = 0;
     }
 
-    //MODIFIES: this
-    //EFFECTS: process users commands for habit options.
-    public void processHabitCommand() {
-        //stub
+    // MODIFIES: this
+    // EFFECTS: displays habit options.
+    public void viewHabitOptions() {
+        System.out.println("\nSelect one of the options below");
+        System.out.println("\t1. RecordHabit");
+        System.out.println("\t2. Next Habit");
+        System.out.println("\t3. Previous Habit");
+        System.out.println("\t4. Remove Habit");
+        System.out.println("\t5. Quit");
     }
 
-    //MODIFIES: this
-    //EFFECTS: displays a habits editable attributes
-    public void showEditAttributes() {
-        //stub
+    // MODIFIES: this
+    // EFFECTS: process users commands for habit options.
+    public void processHabitCommand(int decision, ArrayList<Habit> habitList) {
+        Habit currentHabit = habitList.get(habitIndex);
+        switch (decision) {
+            case 1:
+                recordHabit(currentHabit);
+                break;
+            case 2:
+                getNextHabit(habitList);
+                break;
+            case 3:
+                getPreviousHabit();
+                break;
+            case 4:
+                deleteHabit(currentHabit);
+                break;
+            case 5:
+                System.out.println("Exiting habit list.");
+                break;
+            default:
+                System.out.println("Invalid input. Please selected again.");
+
+        }
     }
 
-    //MODIFIES: this
-    //EFFECTS: user edits a habits attributes
-    public void processEditCommands() {
-        //stub
-    }
-
-    //EFFECTS: shows a players overall progress on their habits.
-    public void displayOverallProgress() {
-        //stub
-    }
-
-    //EFFECTS: displays list of all habits, one habit at a time
+    // EFFECTS: displays list of all habits, one habit at a time
     public void displayAllHabits() {
-        //stub
+        ArrayList<Habit> habitList = this.habits.getAllHabits();
+        viewHabit(habitList);
     }
 
-    //EFFECTS: displays list of completed habits
+    // EFFECTS: displays list of completed habits
     public void displayCompleted() {
-        //stub
+        ArrayList<Habit> completedList = this.habits.getCompleted();
+        viewCompleted(completedList);
     }
 
+    // EFFECTS: displays Completed habit and the options available for it
+    public void viewCompleted(ArrayList<Habit> completedList) {
+        if (completedList.isEmpty()) {
+            System.out.println("Completed list is empty. Time to be productive!");
+            return;
+        }
 
-    //EFFECTS: displays list of todo habits
+        viewCompletedOptions();
+        int command = 0;
+        Habit currentCompleted;
+        while (command != 3) {
+            currentCompleted = completedList.get(habitIndex);
+            displayHabitInfo(currentCompleted);
+            command = input.nextInt();
+            processCompletedCommand(command, completedList);
+        }
+        habitIndex = 0;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: process users commands for completed list options.
+    public void processCompletedCommand(int decision, ArrayList<Habit> completedList) {
+        switch (decision) {
+            case 1:
+                getNextHabit(completedList);
+                break;
+            case 2:
+                getPreviousHabit();
+                break;
+            case 3:
+                System.out.println("Exiting Completed list.");
+                break;
+            default:
+                System.out.println("Invalid input. Please select again.");
+
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Displays completed list options.
+    public void viewCompletedOptions() {
+        System.out.println("\nSelect one of the options below");
+        System.out.println("\t1. Next Habit");
+        System.out.println("\t2. Previous Habit");
+        System.out.println("\t3. Quit");
+    }
+
+    // EFFECTS: displays list of todo habits
     public void displayTodo() {
-        //stub
+        ArrayList<Habit> todoList = this.habits.getTodo();
+        viewTodo(todoList);
     }
 
-    //MODIFIES: this
-    //EFFECTS: Records a users completion of a habit
-    public void recordHabit() {
-        //stub
+    // EFFECTS: displays todo and the options available for todo
+    public void viewTodo(ArrayList<Habit> todoList) {
+        if (todoList.isEmpty()) {
+            System.out.println("TODO list is empty. YAY!");
+            return;
+        }
+
+        viewTodoOptions();
+        int command = 0;
+        Habit currentTodo;
+        while (command != 3) {
+            currentTodo = todoList.get(habitIndex);
+            displayHabitInfo(currentTodo);
+            command = input.nextInt();
+            processTodoCommand(command, todoList);
+        }
+        habitIndex = 0;
     }
 
-    //MODIFIES: this
-    //EFFECTS: creates a new habit based on user specifications
+    // MODIFIES: this
+    // EFFECTS: process users commands for habit options.
+    public void processTodoCommand(int decision, ArrayList<Habit> todoList) {
+        switch (decision) {
+            case 1:
+                getNextHabit(todoList);
+                break;
+            case 2:
+                getPreviousHabit();
+                break;
+            case 3:
+                System.out.println("Exiting TODO list.");
+                break;
+            default:
+                System.out.println("Invalid input. Please select again.");
+
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Displays todo options.
+    public void viewTodoOptions() {
+        System.out.println("\nSelect one of the options below");
+        System.out.println("\t1. Next Habit");
+        System.out.println("\t2. Previous Habit");
+        System.out.println("\t3. Quit");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Records a users completion of a habit
+    public void recordHabit(Habit habit) {
+        if (habits.getCompleted().contains(habit)) {
+            System.out.println("You have completed habit today, try again tommorow.");
+            return;
+        }
+        habit.addProgress();
+        int progress = habit.getProgress();
+        int goal = habit.getLongGoal();
+        if (progress == goal) {
+            System.out.println("\n" + habit.getReward());
+        }
+        this.habits.markCompleted(habit);
+    }
+
+    // EFFECTS: displays the title of Habit, Progress, and remaining progress
+    public void displayHabitInfo(Habit habit) {
+        System.out.println("\nHabit: " + habit.getTitle() + "\nProgress: " + habit.getProgress() 
+                    + "\nDays remaining: " + habit.getRemainingProgress());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: gets next habit in list if it exists.
+    public void getNextHabit(ArrayList<Habit> habitList) {
+        if (!(habitIndex < habits.getAllHabits().size() - 1)) {
+            System.out.println("No more habits to show.");
+        } else {
+            habitIndex++;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: gets previous habit in list if it exists.
+    public void getPreviousHabit() {
+        if (habitIndex <= 0) {
+            System.out.println("No more habits to show.");
+        } else {
+            habitIndex--;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates a new habit based on user specifications
     public void newHabit() {
-        //stub
+        System.out.println("\nEnter how many times you wish to complete the habit.");
+        int goal = input.nextInt();
+        input.nextLine();
+        System.out.println("\nEnter how many intermediate milestones you would like.");
+        int numMilestones = input.nextInt();
+        input.nextLine();
+        System.out.println("Enter you new Habit's name:");
+        String name = input.nextLine();
+
+        System.out.println("Enter a reward message for when you reach goals.");
+        String rewardMessage = input.nextLine();
+
+        Habit habit = new SimpleHabit(name, goal, numMilestones, rewardMessage);
+        this.habits.addHabit(habit);
     }
 
-    //MODIFIES: this
-    //EFFECTS: advances day for testing purposes
+    // MODIFIES: this
+    // EFFECTS: advances day for testing purposes
     public void newDay() {
-        //stub
+        System.out.println("Another Day, another doller. Ready to complete some habits?");
+        habits.changeDate();
     }
 
-    //MODIFIES: this
-    //EFFECTS: turns keepRunning field to false, and prints final message
+    // MODIFIES: this
+    // EFFECTS: turns keepRunning field to false, and prints final message
     public void quitApp() {
-        //stub
+        System.out.println("See you next time!");
+        System.out.println("NOW GO GET AFTER IT!");
+
+        keeprunning = false;
     }
-    
+
+    // MODIFIES: this
+    // EFFECTS: removes habit from all list of habits.
+    public void deleteHabit(Habit habit) {
+        habits.removeHabit(habit);
+        System.out.println("Removing habit. Refresh by returning to menu.");
+    }
+
 }
