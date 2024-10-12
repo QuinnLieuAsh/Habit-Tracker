@@ -7,10 +7,12 @@ import org.junit.jupiter.api.Test;
 
 public class SimpleHabitTest {
     private Habit testHabit;
+    private Habit testHabit2;
     
     @BeforeEach
     void runBefore() {
         testHabit = new SimpleHabit("Study", 30, 7, "Academic Weapon!");
+        testHabit2 = new SimpleHabit("Study", 1, 1, "Academic Weapon!");
     }
 
     @Test
@@ -52,6 +54,16 @@ public class SimpleHabitTest {
         assertEquals(30, testHabit.getRemainingProgress());
     }
 
+    @Test
+    void testCompleteHabit() {
+        testHabit2.addProgress();
+        
+        assertEquals(1, testHabit2.getProgress());
+        assertEquals(0, testHabit2.getRemainingProgress());
+        testHabit2.addProgress();
+        assertEquals(1, testHabit2.getProgress());
+        assertEquals(0, testHabit2.getRemainingProgress());
+    }
     
 
 }
