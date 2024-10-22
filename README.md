@@ -22,4 +22,6 @@ This project is of interest to me because I have struggles to keep a consistent 
 - As a user, I want to be able to add small milestones to my big picture goals
 - As a user, I want to be able to view a list habits I am currently working on.  
 - As a user, I want to be able to view a list of habits I completed today. 
--As a user, I want to be able to create different categories of habits. 
+- As a user, I want to be able to create different categories of habits. 
+- As a user, I want to have the option to save my Habits and my progess. 
+- As a user, I want to be able to load my Habits from file. 
