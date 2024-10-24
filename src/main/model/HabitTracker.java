@@ -3,9 +3,14 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Tracks all a users habits, the date, and provides a list of habits that haven't been 
 // completed today as well as a list of completed habits for the day. 
-public class HabitTracker {
+public class HabitTracker implements Writable {
 
     private ArrayList<Habit> habits;
     private ArrayList<Habit> completed;
@@ -88,6 +93,26 @@ public class HabitTracker {
     //EFFECTS: Decreases the completionDate by one day to simulate today being a new day (For testing purposes)
     public void changeDate() {
         completionDate = completionDate.minusDays(1);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        return null;//STUB
+    }
+
+    //EFFECTS: returns all habits as JSON Array
+    private JSONArray habitsToJson() {
+        return null;//stub
+    }
+
+    //EFFECTS: returns all Todo habits as JSON Array
+    private JSONArray todoToJson() {
+        return null;//stub
+    }
+
+    //EFFECTS: returns all Completed habits as JSON Array
+    private JSONArray completedToJson() {
+        return null;//stub
     }
 
 
