@@ -1,12 +1,16 @@
 package model;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Represents a Habit, with a title, 
 //a long term goal (# of times recorded),
 // a short-term goals (intermediate milestones), 
 // progress (# times habit is completed), a
 // remaining progress (habit recordings left til long goal is accomplished) 
 // and a reward message.
-public abstract class Habit {
+public abstract class Habit implements Writable{
     protected String title;
     protected int longGoal;
     protected int shortGoal;
@@ -59,5 +63,10 @@ public abstract class Habit {
         return remaining; 
     }
     
+    @Override
+    public JSONObject toJson() {
+        return null;//STUB
+    }
+   
 
 }
