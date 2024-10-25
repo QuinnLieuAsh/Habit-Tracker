@@ -97,22 +97,44 @@ public class HabitTracker implements Writable {
 
     @Override
     public JSONObject toJson() {
-        return null;//STUB
+        JSONObject json = new JSONObject();
+        json.put("habits", habitsToJson());
+        json.put("todo", todoToJson());
+        json.put("completed", completedToJson());
+        return json;
     }
 
     //EFFECTS: returns all habits as JSON Array
     private JSONArray habitsToJson() {
-        return null;//stub
+        JSONArray jsonArray = new JSONArray();
+
+        for (Habit h : habits) {
+            jsonArray.put(h.toJson());
+        }
+
+        return jsonArray;
     }
 
     //EFFECTS: returns all Todo habits as JSON Array
     private JSONArray todoToJson() {
-        return null;//stub
+        JSONArray jsonArray = new JSONArray();
+
+        for (Habit h : todo) {
+            jsonArray.put(h.toJson());
+        }
+
+        return jsonArray;
     }
 
     //EFFECTS: returns all Completed habits as JSON Array
     private JSONArray completedToJson() {
-        return null;//stub
+        JSONArray jsonArray = new JSONArray();
+
+        for (Habit h : completed) {
+            jsonArray.put(h.toJson());
+        }
+
+        return jsonArray;
     }
 
 
