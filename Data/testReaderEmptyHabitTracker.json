@@ -1,5 +1,6 @@
 {
     "habits": [],
     "todo": [],
-    "completed": []
+    "completed": [],
+    "completionDate": "2000-01-01"
 }
