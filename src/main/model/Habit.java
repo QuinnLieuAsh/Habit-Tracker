@@ -75,5 +75,12 @@ public abstract class Habit implements Writable{
         return json;
     }
    
+     //MODIFIES: This
+    //EFFECTS: sets the Progress of a habit (for data persistence uses)
+    public void setProgress(int x) {
+        progress = x;
+        remaining = longGoal - progress; 
+    }
+
 
 }
