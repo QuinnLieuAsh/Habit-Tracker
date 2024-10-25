@@ -9,13 +9,12 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-
 //Citation: References test class from JsonSerializationDemo
-public class JSONReaderTest extends JSONTest { 
+public class JSONReaderTest extends JSONTest {
 
     @Test
     public void testReaderNonExistentFile() {
-        JSONReader reader = new JSONReader("./data/noSuchFile.json");
+        JsonReader reader = new JsonReader("./data/noSuchFile.json");
         try {
             HabitTracker ht = reader.read();
             fail("IOException expected");
@@ -26,7 +25,7 @@ public class JSONReaderTest extends JSONTest {
 
     @Test
     public void testReaderEmptyWorkRoom() {
-        JSONReader reader = new JSONReader("./data/testReaderEmptyHabitTracker.json");
+        JsonReader reader = new JsonReader("./data/testReaderEmptyHabitTracker.json");
         try {
             HabitTracker ht = reader.read();
             assertEquals(0, ht.getAllHabits().size());
@@ -39,7 +38,7 @@ public class JSONReaderTest extends JSONTest {
 
     @Test
     public void testReaderGeneralWorkRoom() {
-        JSONReader reader = new JSONReader("./data/testReaderGeneralHabitTracker.json");
+        JsonReader reader = new JsonReader("./data/testReaderGeneralHabitTracker.json");
         try {
             HabitTracker ht = reader.read();
             List<Habit> habs = ht.getAllHabits();
@@ -47,17 +46,14 @@ public class JSONReaderTest extends JSONTest {
             List<Habit> comp = ht.getCompleted();
             assertEquals(2, habs.size());
             assertEquals(1, todo.size());
-            assertEquals(1, comp.size()); 
-            checkHabit("run", 30, 5, 7, 23, "zoom", habs.get(0)); 
-            checkHabit("study", 30, 6, 10, 20, "yay", habs.get(1)); 
-            checkHabit("run", 30, 5, 7, 23, "zoom", todo.get(0)); 
-            checkHabit("study", 30, 6, 10, 20, "yay", comp.get(0)); 
+            assertEquals(1, comp.size());
+            checkHabit("run", 30, 5, 7, 23, "zoom", habs.get(0));
+            checkHabit("study", 30, 6, 10, 20, "yay", habs.get(1));
+            checkHabit("run", 30, 5, 7, 23, "zoom", todo.get(0));
+            checkHabit("study", 30, 6, 10, 20, "yay", comp.get(0));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
     }
-
-
-
 
 }

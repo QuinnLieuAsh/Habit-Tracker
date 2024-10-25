@@ -12,12 +12,12 @@ import org.junit.jupiter.api.Test;
 
 //Citation: References test class from JsonSerializationDemo
 public class JSONWriterTest extends JSONTest {
-    
-@Test
-public void testWriterInvalidFile() {
+
+    @Test
+    public void testWriterInvalidFile() {
         try {
             HabitTracker ht = new HabitTracker();
-            JSONWriter writer = new JSONWriter("./data/my\0illegal:fileName.json");
+            JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
         } catch (IOException e) {
@@ -29,12 +29,12 @@ public void testWriterInvalidFile() {
     public void testWriterEmptyWorkroom() {
         try {
             HabitTracker ht = new HabitTracker();
-            JSONWriter writer = new JSONWriter("./data/testWriterEmptyHabitTracker.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyHabitTracker.json");
             writer.open();
             writer.write(ht);
             writer.close();
 
-            JSONReader reader = new JSONReader("./data/testWriterEmptyHabitTracker.json");
+            JsonReader reader = new JsonReader("./data/testWriterEmptyHabitTracker.json");
             ht = reader.read();
             assertEquals(0, ht.getAllHabits().size());
             assertEquals(0, ht.getTodo().size());
@@ -52,24 +52,24 @@ public void testWriterInvalidFile() {
             Habit h2 = new SimpleHabit("study", 30, 5, "yay");
             ht.addHabit(h1);
             ht.addHabit(h2);
-            ht.markCompleted(h2);   
-            JSONWriter writer = new JSONWriter("./data/testWriterGeneralHabitTracker.json");
+            ht.markCompleted(h2);
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralHabitTracker.json");
             writer.open();
             writer.write(ht);
             writer.close();
 
-            JSONReader reader = new JSONReader("./data/testWriterGeneralHabitTracker.json");
+            JsonReader reader = new JsonReader("./data/testWriterGeneralHabitTracker.json");
             ht = reader.read();
             List<Habit> habs = ht.getAllHabits();
             List<Habit> todo = ht.getTodo();
             List<Habit> comp = ht.getCompleted();
             assertEquals(2, habs.size());
             assertEquals(1, todo.size());
-            assertEquals(1, comp.size()); 
-            checkHabit("run", 30, 5, 0, 30, "zoom", habs.get(0)); 
-            checkHabit("study", 30, 6, 0, 30, "yay", habs.get(1)); 
-            checkHabit("run", 30, 5, 0, 30, "zoom", todo.get(0)); 
-            checkHabit("study", 30, 6, 0, 30, "yay", comp.get(0)); 
+            assertEquals(1, comp.size());
+            checkHabit("run", 30, 5, 0, 30, "zoom", habs.get(0));
+            checkHabit("study", 30, 6, 0, 30, "yay", habs.get(1));
+            checkHabit("run", 30, 5, 0, 30, "zoom", todo.get(0));
+            checkHabit("study", 30, 6, 0, 30, "yay", comp.get(0));
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");
