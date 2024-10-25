@@ -65,7 +65,14 @@ public abstract class Habit implements Writable{
     
     @Override
     public JSONObject toJson() {
-        return null;//STUB
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("longGoal", longGoal);
+        json.put("shortGoal", shortGoal);
+        json.put("progress", progress);
+        json.put("remaining", remaining);
+        json.put("reward", reward);
+        return json;
     }
    
 
