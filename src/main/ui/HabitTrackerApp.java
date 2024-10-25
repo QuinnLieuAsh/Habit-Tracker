@@ -5,18 +5,26 @@ import model.Habit;
 import model.HabitTracker;
 import model.SimpleHabit;
 
+import persistence.JSONReader;
+import persistence.JSONWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 //Habit Tracker Application
 public class HabitTrackerApp {
+    private static final String JSON_STORE = "./data/habitTracker.json";
     private Scanner input;
     private HabitTracker habits;
     private int habitIndex = 0;
     private boolean keeprunning;
+    private JSONWriter jsonWriter;
+    private JSONReader jsonReader;
 
     // EFFECTS: Runs HabitTracker App
-    public HabitTrackerApp() {
+    public HabitTrackerApp() throws FileNotFoundException {
         runHabitTracker();
     }
 
@@ -58,6 +66,12 @@ public class HabitTrackerApp {
             case 6:
                 quitApp();
                 break;
+            case 7:
+                saveProgress();
+                break;
+            case 8:
+                loadProgress();
+                break;
             default:
                 System.out.println("Invalid input. Please selected again.");
         }
@@ -72,6 +86,8 @@ public class HabitTrackerApp {
         System.out.println("\t4. Create new habit");
         System.out.println("\t5. New day (testing purposes)");
         System.out.println("\t6. Quit");
+        System.out.println("\t7. Save Habit Tracker to file");
+        System.out.println("\t8. Load Habit Tracker from file");
     }
 
     // EFFECTS: intitializes the HabitTracker
@@ -79,6 +95,8 @@ public class HabitTrackerApp {
         habits = new HabitTracker();
         input = new Scanner(System.in);
         input.useDelimiter("\r?\n|\r");
+        jsonWriter = new JSONWriter(JSON_STORE);
+        jsonReader = new JSONReader(JSON_STORE);
     }
 
     // EFFECTS: displays habit and the options available for one habit
@@ -155,7 +173,7 @@ public class HabitTrackerApp {
             System.out.println("Completed list is empty. Time to be productive!");
             return;
         }
-
+        habitIndex = 0;
         viewCompletedOptions();
         int command = 0;
         Habit currentCompleted;
@@ -208,7 +226,7 @@ public class HabitTrackerApp {
             System.out.println("TODO list is empty. YAY!");
             return;
         }
-
+        habitIndex = 0;
         viewTodoOptions();
         int command = 0;
         Habit currentTodo;
@@ -257,6 +275,7 @@ public class HabitTrackerApp {
             return;
         }
         habit.addProgress();
+        habitIndex = 0;
         int progress = habit.getProgress();
         int goal = habit.getLongGoal();
         if (progress == goal) {
@@ -274,17 +293,37 @@ public class HabitTrackerApp {
     // MODIFIES: this
     // EFFECTS: gets next habit in list if it exists.
     public void getNextHabit(ArrayList<Habit> habitList) {
-        if (!(habitIndex < habits.getAllHabits().size() - 1)) {
-            System.out.println("No more habits to show.");
-        } else {
+        if (this.habitIndex >= habits.getAllHabits().size() - 1) {
             habitIndex++;
+        } else {
+            System.out.println("No more habits to show.");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: gets next todo in list if it exists.
+    public void getNextTodo(ArrayList<Habit> habitList) {
+        if (this.habitIndex >= habits.getTodo().size() - 1) {
+            habitIndex++;
+        } else {
+            System.out.println("No more habits to show.");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: gets next completed in list if it exists.
+    public void getNextCompleted(ArrayList<Habit> habitList) {
+        if (this.habitIndex >= habits.getCompleted().size() - 1) {
+            habitIndex++;
+        } else {
+            System.out.println("No more habits to show.");
         }
     }
 
     // MODIFIES: this
     // EFFECTS: gets previous habit in list if it exists.
     public void getPreviousHabit() {
-        if (habitIndex <= 0) {
+        if (this.habitIndex <= 0) {
             System.out.println("No more habits to show.");
         } else {
             habitIndex--;
@@ -331,6 +370,29 @@ public class HabitTrackerApp {
     public void deleteHabit(Habit habit) {
         habits.removeHabit(habit);
         System.out.println("Removing habit. Refresh by returning to menu.");
+    }
+
+    //EFFECTS: saves the habit tracker to file
+    private void saveProgress() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(habits);
+            jsonWriter.close();
+            System.out.println("Saved HabitTracker to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: loads habit tracker from file
+    private void loadProgress() {
+        try {
+            habits = jsonReader.read();
+            System.out.println("Loaded HabitTracker from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
 }
