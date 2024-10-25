@@ -1,15 +1,14 @@
 package persistence;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import model.Habit;
 import model.HabitTracker;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+
 import java.util.List;
 import java.io.IOException;
 
-import model.HabitTracker;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
 
 //Citation: References test class from JsonSerializationDemo
 public class JSONReaderTest extends JSONTest { 
