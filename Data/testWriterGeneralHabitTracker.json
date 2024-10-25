@@ -1,40 +1,36 @@
 {
+    "todo": [{
+        "reward": "zoom",
+        "shortGoal": 5,
+        "progress": 0,
+        "longGoal": 30,
+        "title": "run",
+        "remaining": 30
+    }],
     "habits": [
         {
-            "title": "run",
-            "longGoal": 30,
+            "reward": "zoom",
             "shortGoal": 5,
             "progress": 0,
-            "remaining": 30,
-            "reward": "zoom"
+            "longGoal": 30,
+            "title": "run",
+            "remaining": 30
         },
         {
-            "title": "study",
-            "longGoal": 30,
+            "reward": "yay",
             "shortGoal": 6,
             "progress": 0,
-            "remaining": 30,
-            "reward": "yay"
-        }
-    ],
-    "todo": [
-        {
-            "title": "run",
             "longGoal": 30,
-            "shortGoal": 5,
-            "progress": 0,
-            "remaining": 30,
-            "reward": "zoom"
-        }
-    ],
-    "completed": [
-        {
             "title": "study",
-            "longGoal": 30,
-            "shortGoal": 6,
-            "progress": 0,
-            "remaining": 30,
-            "reward": "yay"
+            "remaining": 30
         }
-    ]
+    ],
+    "completed": [{
+        "reward": "yay",
+        "shortGoal": 6,
+        "progress": 0,
+        "longGoal": 30,
+        "title": "study",
+        "remaining": 30
+    }]
 }
