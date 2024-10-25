@@ -191,7 +191,7 @@ public class HabitTrackerApp {
     public void processCompletedCommand(int decision, ArrayList<Habit> completedList) {
         switch (decision) {
             case 1:
-                getNextHabit(completedList);
+                getNextCompleted(completedList);
                 break;
             case 2:
                 getPreviousHabit();
@@ -244,7 +244,7 @@ public class HabitTrackerApp {
     public void processTodoCommand(int decision, ArrayList<Habit> todoList) {
         switch (decision) {
             case 1:
-                getNextHabit(todoList);
+                getNextTodo(todoList);
                 break;
             case 2:
                 getPreviousHabit();
@@ -270,7 +270,7 @@ public class HabitTrackerApp {
     // MODIFIES: this
     // EFFECTS: Records a users completion of a habit
     public void recordHabit(Habit habit) {
-        if (habits.getCompleted().contains(habit)) {
+        if (inCompleted(habit)) {
             System.out.println("You have completed habit today, try again tommorow.");
             return;
         }
@@ -284,6 +284,25 @@ public class HabitTrackerApp {
         this.habits.markCompleted(habit);
     }
 
+    //EFFECTS: searches completed habits and looks for match
+    public boolean inCompleted(Habit habit) {
+        for (Habit h : habits.getCompleted()) {
+            if (compareHabit(habit, h)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //EFFECTS: compares two habits based on main attributes
+    public boolean compareHabit(Habit h1, Habit h2) {
+        boolean match = h1.getTitle().equals(h2.getTitle()) &&
+        h1.getLongGoal() == h2.getLongGoal() &&
+        h1.getProgress() == h2.getProgress();
+
+        return match;
+    }
+
     // EFFECTS: displays the title of Habit, Progress, and remaining progress
     public void displayHabitInfo(Habit habit) {
         System.out.println("\nHabit: " + habit.getTitle() + "\nProgress: " + habit.getProgress() 
@@ -294,9 +313,9 @@ public class HabitTrackerApp {
     // EFFECTS: gets next habit in list if it exists.
     public void getNextHabit(ArrayList<Habit> habitList) {
         if (this.habitIndex >= habits.getAllHabits().size() - 1) {
-            habitIndex++;
-        } else {
             System.out.println("No more habits to show.");
+        } else {
+            habitIndex++;
         }
     }
 
@@ -304,9 +323,9 @@ public class HabitTrackerApp {
     // EFFECTS: gets next todo in list if it exists.
     public void getNextTodo(ArrayList<Habit> habitList) {
         if (this.habitIndex >= habits.getTodo().size() - 1) {
-            habitIndex++;
-        } else {
             System.out.println("No more habits to show.");
+        } else {
+            habitIndex++;
         }
     }
 
@@ -314,9 +333,9 @@ public class HabitTrackerApp {
     // EFFECTS: gets next completed in list if it exists.
     public void getNextCompleted(ArrayList<Habit> habitList) {
         if (this.habitIndex >= habits.getCompleted().size() - 1) {
-            habitIndex++;
-        } else {
             System.out.println("No more habits to show.");
+        } else {
+            habitIndex++;
         }
     }
 
