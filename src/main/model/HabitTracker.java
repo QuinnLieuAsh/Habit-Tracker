@@ -101,7 +101,7 @@ public class HabitTracker implements Writable {
         json.put("habits", habitsToJson());
         json.put("todo", todoToJson());
         json.put("completed", completedToJson());
-        json.put("completionDate", completionDate); //TODO: add Completiton Date to Persistence and tests
+        json.put("completionDate", completionDate); 
         return json;
     }
 

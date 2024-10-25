@@ -284,7 +284,7 @@ public class HabitTrackerApp {
         this.habits.markCompleted(habit);
     }
 
-    //EFFECTS: searches completed habits and looks for match
+    // EFFECTS: searches completed habits and looks for match
     public boolean inCompleted(Habit habit) {
         for (Habit h : habits.getCompleted()) {
             if (compareHabit(habit, h)) {
@@ -294,19 +294,19 @@ public class HabitTrackerApp {
         return false;
     }
 
-    //EFFECTS: compares two habits based on main attributes
+    // EFFECTS: compares two habits based on main attributes
     public boolean compareHabit(Habit h1, Habit h2) {
-        boolean match = h1.getTitle().equals(h2.getTitle()) &&
-        h1.getLongGoal() == h2.getLongGoal() &&
-        h1.getProgress() == h2.getProgress();
+        boolean match = h1.getTitle().equals(h2.getTitle())
+                && h1.getLongGoal() == h2.getLongGoal()
+                && h1.getProgress() == h2.getProgress();
 
         return match;
     }
 
     // EFFECTS: displays the title of Habit, Progress, and remaining progress
     public void displayHabitInfo(Habit habit) {
-        System.out.println("\nHabit: " + habit.getTitle() + "\nProgress: " + habit.getProgress() 
-                    + "\nDays remaining: " + habit.getRemainingProgress());
+        System.out.println("\nHabit: " + habit.getTitle() + "\nProgress: " + habit.getProgress()
+                + "\nDays remaining: " + habit.getRemainingProgress());
     }
 
     // MODIFIES: this
@@ -391,7 +391,7 @@ public class HabitTrackerApp {
         System.out.println("Removing habit. Refresh by returning to menu.");
     }
 
-    //EFFECTS: saves the habit tracker to file
+    // EFFECTS: saves the habit tracker to file
     private void saveProgress() {
         try {
             jsonWriter.open();
@@ -403,8 +403,8 @@ public class HabitTrackerApp {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: loads habit tracker from file
+    // MODIFIES: this
+    // EFFECTS: loads habit tracker from file
     private void loadProgress() {
         try {
             habits = jsonReader.read();

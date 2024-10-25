@@ -13,7 +13,7 @@ import org.json.JSONObject;
 import model.HabitTracker;
 import model.SimpleHabit;
 import model.Habit;
-import java.time.LocalDate;
+
 
 //A reader that reads Habittracker from JSON data stored in file
 //References and uses code from JsonReader class in JsonSerializationDemo.
@@ -48,7 +48,7 @@ public class JsonReader {
     private HabitTracker parseHabitTracker(JSONObject jsonObject) {
         HabitTracker ht = new HabitTracker();
         LocalDate time = LocalDate.parse(jsonObject.getString("completionDate"));
-        ht.setCompletionDate(time);  //TODO: verfiy this
+        ht.setCompletionDate(time);
         addHabits(ht, jsonObject);
         return ht;
 
