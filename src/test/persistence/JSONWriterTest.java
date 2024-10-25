@@ -14,7 +14,7 @@ import java.io.IOException;
 public class JSONWriterTest extends JSONTest {
     
 @Test
-    void testWriterInvalidFile() {
+public void testWriterInvalidFile() {
         try {
             HabitTracker ht = new HabitTracker();
             JSONWriter writer = new JSONWriter("./data/my\0illegal:fileName.json");
@@ -26,7 +26,7 @@ public class JSONWriterTest extends JSONTest {
     }
 
     @Test
-    void testWriterEmptyWorkroom() {
+    public void testWriterEmptyWorkroom() {
         try {
             HabitTracker ht = new HabitTracker();
             JSONWriter writer = new JSONWriter("./data/testWriterEmptyHabitTracker.json");
@@ -45,7 +45,7 @@ public class JSONWriterTest extends JSONTest {
     }
 
     @Test
-    void testWriterGeneralWorkroom() {
+    public void testWriterGeneralWorkroom() {
         try {
             HabitTracker ht = new HabitTracker();
             Habit h1 = new SimpleHabit("run", 30, 6, "zoom");

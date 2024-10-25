@@ -15,7 +15,7 @@ import model.HabitTracker;
 public class JSONReaderTest extends JSONTest { 
 
     @Test
-    void testReaderNonExistentFile() {
+    public void testReaderNonExistentFile() {
         JSONReader reader = new JSONReader("./data/noSuchFile.json");
         try {
             HabitTracker ht = reader.read();
@@ -26,7 +26,7 @@ public class JSONReaderTest extends JSONTest {
     }
 
     @Test
-    void testReaderEmptyWorkRoom() {
+    public void testReaderEmptyWorkRoom() {
         JSONReader reader = new JSONReader("./data/testReaderEmptyHabitTracker.json");
         try {
             HabitTracker ht = reader.read();
@@ -39,7 +39,7 @@ public class JSONReaderTest extends JSONTest {
     }
 
     @Test
-    void testReaderGeneralWorkRoom() {
+    public void testReaderGeneralWorkRoom() {
         JSONReader reader = new JSONReader("./data/testReaderGeneralHabitTracker.json");
         try {
             HabitTracker ht = reader.read();
