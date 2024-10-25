@@ -13,14 +13,13 @@ import model.HabitTracker;
 import model.SimpleHabit;
 import model.Habit;
 
-
 //A reader that reads Habittracker from JSON data stored in file
 //References and uses code from JsonReader class in JsonSerializationDemo.
-public class JSONReader {
-     private String source;
+public class JsonReader {
+    private String source;
 
     // EFFECTS: constructs reader to read from source file
-    public JSONReader(String source) {
+    public JsonReader(String source) {
         this.source = source;
     }
 
@@ -87,7 +86,7 @@ public class JSONReader {
         String reward = jsonObject.getString("reward");
         int intermediates = longGoal / shortGoal;
         Habit habit = new SimpleHabit(title, longGoal, intermediates, reward);
-        habit.setProgress(progress); //todo
+        habit.setProgress(progress); // todo
         ht.addJsonCompleted(habit);
     }
 
@@ -101,7 +100,7 @@ public class JSONReader {
         String reward = jsonObject.getString("reward");
         int intermediates = longGoal / shortGoal;
         Habit habit = new SimpleHabit(title, longGoal, intermediates, reward);
-        habit.setProgress(progress); //todo
+        habit.setProgress(progress); // todo
         ht.addJsonTodo(habit);
     }
 
@@ -115,7 +114,7 @@ public class JSONReader {
         String reward = jsonObject.getString("reward");
         int intermediates = longGoal / shortGoal;
         Habit habit = new SimpleHabit(title, longGoal, intermediates, reward);
-        habit.setProgress(progress); //todo
+        habit.setProgress(progress); // todo
         ht.addJsonHabit(habit);
     }
 

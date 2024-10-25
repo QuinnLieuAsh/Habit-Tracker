@@ -17,58 +17,57 @@ public class HabitTracker implements Writable {
     private ArrayList<Habit> todo;
     private LocalDate completionDate;
 
-
     public HabitTracker() {
         habits = new ArrayList<>();
         completed = new ArrayList<>();
         todo = new ArrayList<>();
         completionDate = LocalDate.now();
-        
+
     }
 
-    //MODIFIES: this
-    //EFFECTS: adds a habit to habits, and adds it to todo
+    // MODIFIES: this
+    // EFFECTS: adds a habit to habits, and adds it to todo
     public void addHabit(Habit h) {
         habits.add(h);
         todo.add(h);
     }
 
-    //MODIFIES: this
-    //EFFECTS: removes habit form todo, and adds habit to completed
+    // MODIFIES: this
+    // EFFECTS: removes habit form todo, and adds habit to completed
     public void markCompleted(Habit h) {
         todo.remove(h);
         completed.add(h);
     }
 
-    //MODIFIES: this 
-    //EFFECTS: removes habit from completed, and adds habit to todo.
+    // MODIFIES: this
+    // EFFECTS: removes habit from completed, and adds habit to todo.
     public void markTodo(Habit h) {
         completed.remove(h);
         todo.add(h);
     }
-    
-    //MODIFIRES: this
-    //EFFECTS: remove a habit from all lists
+
+    // MODIFIRES: this
+    // EFFECTS: remove a habit from all lists
     public void removeHabit(Habit h) {
         habits.remove(h);
         completed.remove(h);
         todo.remove(h);
     }
 
-    //MODIFIES: this
-    //EFFECTS: move all the completed habits back to the todo,
-    // in the order found in habits. 
+    // MODIFIES: this
+    // EFFECTS: move all the completed habits back to the todo,
+    // in the order found in habits.
     public void resetCompletedHabits() {
         completed.clear();
         todo.clear();
         todo.addAll(habits);
     }
-    
-    //MODIFIES: this
-    //EFFECTS: resets the todo list each new day
+
+    // MODIFIES: this
+    // EFFECTS: resets the todo list each new day
     public void dailyReset() {
         if (!completionDate.equals(LocalDate.now())) {
-            resetCompletedHabits();            
+            resetCompletedHabits();
         }
         completionDate = LocalDate.now();
     }
@@ -86,11 +85,12 @@ public class HabitTracker implements Writable {
     }
 
     public LocalDate getCompletionDate() {
-        return completionDate;  
+        return completionDate;
     }
-    
-    //MODIFIES: this
-    //EFFECTS: Decreases the completionDate by one day to simulate today being a new day (For testing purposes)
+
+    // MODIFIES: this
+    // EFFECTS: Decreases the completionDate by one day to simulate today being a
+    // new day (For testing purposes)
     public void changeDate() {
         completionDate = completionDate.minusDays(1);
     }
@@ -104,7 +104,7 @@ public class HabitTracker implements Writable {
         return json;
     }
 
-    //EFFECTS: returns all habits as JSON Array
+    // EFFECTS: returns all habits as JSON Array
     private JSONArray habitsToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -115,7 +115,7 @@ public class HabitTracker implements Writable {
         return jsonArray;
     }
 
-    //EFFECTS: returns all Todo habits as JSON Array
+    // EFFECTS: returns all Todo habits as JSON Array
     private JSONArray todoToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -126,7 +126,7 @@ public class HabitTracker implements Writable {
         return jsonArray;
     }
 
-    //EFFECTS: returns all Completed habits as JSON Array
+    // EFFECTS: returns all Completed habits as JSON Array
     private JSONArray completedToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -137,24 +137,22 @@ public class HabitTracker implements Writable {
         return jsonArray;
     }
 
-    //MODIFIES: this
-    //EFFECTS: adds a habit to completed (for json reader)
+    // MODIFIES: this
+    // EFFECTS: adds a habit to completed (for json reader)
     public void addJsonCompleted(Habit h) {
         completed.add(h);
     }
 
-    //MODIFIES: this
-    //EFFECTS: adds a habit to completed (for json reader)
+    // MODIFIES: this
+    // EFFECTS: adds a habit to completed (for json reader)
     public void addJsonHabit(Habit h) {
         habits.add(h);
     }
 
-    //MODIFIES: this
-    //EFFECTS: adds a habit to completed (for json reader)
+    // MODIFIES: this
+    // EFFECTS: adds a habit to completed (for json reader)
     public void addJsonTodo(Habit h) {
         todo.add(h);
     }
-    //TODO: Write tests for all these guys
-
 
 }

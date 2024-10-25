@@ -5,8 +5,8 @@ import model.Habit;
 import model.HabitTracker;
 import model.SimpleHabit;
 
-import persistence.JSONReader;
-import persistence.JSONWriter;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,8 +20,8 @@ public class HabitTrackerApp {
     private HabitTracker habits;
     private int habitIndex = 0;
     private boolean keeprunning;
-    private JSONWriter jsonWriter;
-    private JSONReader jsonReader;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: Runs HabitTracker App
     public HabitTrackerApp() throws FileNotFoundException {
@@ -46,6 +46,7 @@ public class HabitTrackerApp {
 
     // MODIFIES: this
     // EFFECTS: processes user commands for start screen
+    @SuppressWarnings("methodlength")
     public void processMenuCommand(int decision) {
         switch (decision) {
             case 1:
@@ -95,8 +96,8 @@ public class HabitTrackerApp {
         habits = new HabitTracker();
         input = new Scanner(System.in);
         input.useDelimiter("\r?\n|\r");
-        jsonWriter = new JSONWriter(JSON_STORE);
-        jsonReader = new JSONReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // EFFECTS: displays habit and the options available for one habit
@@ -151,7 +152,6 @@ public class HabitTrackerApp {
                 break;
             default:
                 System.out.println("Invalid input. Please selected again.");
-
         }
     }
 

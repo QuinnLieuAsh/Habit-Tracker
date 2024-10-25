@@ -10,18 +10,19 @@ import model.HabitTracker;
 
 //A writer that writes JSON representation of HabitTracker to file.
 //References and uses code from JsonWriter class in JsonSerializationDemo.
-public class JSONWriter {
+public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;
     private String destination;
 
     // EFFECTS: constructs writer to write to destination file
-    public JSONWriter(String destination) {
+    public JsonWriter(String destination) {
         this.destination = destination;
     }
 
     // MODIFIES: this
-    // EFFECTS: opens writer; throws FileNotFoundException if destination file cannot
+    // EFFECTS: opens writer; throws FileNotFoundException if destination file
+    // cannot
     // be opened for writing
     public void open() throws FileNotFoundException {
         writer = new PrintWriter(new File(destination));

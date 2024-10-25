@@ -10,59 +10,59 @@ import persistence.Writable;
 // progress (# times habit is completed), a
 // remaining progress (habit recordings left til long goal is accomplished) 
 // and a reward message.
-public abstract class Habit implements Writable{
+public abstract class Habit implements Writable {
     protected String title;
     protected int longGoal;
     protected int shortGoal;
     protected int progress;
     protected int remaining;
     protected String reward;
-    
-    //REQUIRES: intermediates <= target
+
+    // REQUIRES: intermediates <= target
     public Habit(String habitName, int target, int intermediates, String rewardMessage) {
         title = habitName;
         longGoal = target;
-        shortGoal = longGoal / intermediates; 
+        shortGoal = longGoal / intermediates;
         progress = 0;
         remaining = longGoal;
         reward = rewardMessage;
     }
 
-    //MODIFIES: This
-    //EFFECTS: increases the progress of habit
+    // MODIFIES: This
+    // EFFECTS: increases the progress of habit
     public abstract void addProgress();
 
-    //MODIFIES: This
-    //EFFECTS: resets the habit progress to 0
+    // MODIFIES: This
+    // EFFECTS: resets the habit progress to 0
     public void resetProgress() {
         progress = 0;
-        remaining = longGoal; 
+        remaining = longGoal;
     }
 
     public String getTitle() {
-        return title; 
+        return title;
     }
 
     public int getLongGoal() {
-        return longGoal; 
+        return longGoal;
     }
 
     public int getShortGoal() {
-        return shortGoal; 
+        return shortGoal;
     }
 
     public int getProgress() {
-        return progress; 
+        return progress;
     }
 
     public String getReward() {
-        return reward; 
+        return reward;
     }
 
     public int getRemainingProgress() {
-        return remaining; 
+        return remaining;
     }
-    
+
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -74,13 +74,12 @@ public abstract class Habit implements Writable{
         json.put("reward", reward);
         return json;
     }
-   
-     //MODIFIES: This
-    //EFFECTS: sets the Progress of a habit (for data persistence uses)
+
+    // MODIFIES: This
+    // EFFECTS: sets the Progress of a habit (for data persistence uses)
     public void setProgress(int x) {
         progress = x;
-        remaining = longGoal - progress; 
+        remaining = longGoal - progress;
     }
-
 
 }
