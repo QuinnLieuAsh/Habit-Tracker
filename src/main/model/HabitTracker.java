@@ -137,5 +137,24 @@ public class HabitTracker implements Writable {
         return jsonArray;
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds a habit to completed (for json reader)
+    public void addJsonCompleted(Habit h) {
+        completed.add(h);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: adds a habit to completed (for json reader)
+    public void addJsonHabit(Habit h) {
+        habits.add(h);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: adds a habit to completed (for json reader)
+    public void addJsonTodo(Habit h) {
+        todo.add(h);
+    }
+    //TODO: Write tests for all these guys
+
 
 }
