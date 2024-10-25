@@ -6,6 +6,7 @@ import model.SimpleHabit;
 
 import java.util.List;
 import java.io.IOException;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,8 @@ public class JSONWriterTest extends JSONTest {
             assertEquals(0, ht.getAllHabits().size());
             assertEquals(0, ht.getTodo().size());
             assertEquals(0, ht.getCompleted().size());
+            assertEquals(LocalDate.now(), ht.getCompletionDate());
+
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
@@ -63,6 +66,7 @@ public class JSONWriterTest extends JSONTest {
             List<Habit> habs = ht.getAllHabits();
             List<Habit> todo = ht.getTodo();
             List<Habit> comp = ht.getCompleted();
+            assertEquals(LocalDate.now(), ht.getCompletionDate());
             assertEquals(2, habs.size());
             assertEquals(1, todo.size());
             assertEquals(1, comp.size());
