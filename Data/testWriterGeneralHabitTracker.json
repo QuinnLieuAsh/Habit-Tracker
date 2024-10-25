@@ -4,16 +4,16 @@
             "title": "run",
             "longGoal": 30,
             "shortGoal": 5,
-            "progress": 7,
-            "remaining": 23,
+            "progress": 0,
+            "remaining": 30,
             "reward": "zoom"
         },
         {
             "title": "study",
             "longGoal": 30,
             "shortGoal": 6,
-            "progress": 10,
-            "remaining": 20,
+            "progress": 0,
+            "remaining": 30,
             "reward": "yay"
         }
     ],
@@ -22,8 +22,8 @@
             "title": "run",
             "longGoal": 30,
             "shortGoal": 5,
-            "progress": 7,
-            "remaining": 23,
+            "progress": 0,
+            "remaining": 30,
             "reward": "zoom"
         }
     ],
@@ -32,8 +32,8 @@
             "title": "study",
             "longGoal": 30,
             "shortGoal": 6,
-            "progress": 10,
-            "remaining": 20,
+            "progress": 0,
+            "remaining": 30,
             "reward": "yay"
         }
     ]
