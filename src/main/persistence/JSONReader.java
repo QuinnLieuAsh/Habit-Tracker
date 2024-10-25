@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 import org.json.JSONArray;
@@ -12,6 +13,7 @@ import org.json.JSONObject;
 import model.HabitTracker;
 import model.SimpleHabit;
 import model.Habit;
+import java.time.LocalDate;
 
 //A reader that reads Habittracker from JSON data stored in file
 //References and uses code from JsonReader class in JsonSerializationDemo.
@@ -45,6 +47,8 @@ public class JsonReader {
     // EFFECTS: parses HabitTracker from JSON object and returns it
     private HabitTracker parseHabitTracker(JSONObject jsonObject) {
         HabitTracker ht = new HabitTracker();
+        LocalDate time = LocalDate.parse(jsonObject.getString("completionDate"));
+        ht.setCompletionDate(time);  //TODO: verfiy this
         addHabits(ht, jsonObject);
         return ht;
 
