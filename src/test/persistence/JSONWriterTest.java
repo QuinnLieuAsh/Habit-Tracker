@@ -51,7 +51,8 @@ public void testWriterInvalidFile() {
             Habit h1 = new SimpleHabit("run", 30, 6, "zoom");
             Habit h2 = new SimpleHabit("study", 30, 5, "yay");
             ht.addHabit(h1);
-            ht.addHabit(h2);   
+            ht.addHabit(h2);
+            ht.markCompleted(h2);   
             JSONWriter writer = new JSONWriter("./data/testWriterGeneralHabitTracker.json");
             writer.open();
             writer.write(ht);
