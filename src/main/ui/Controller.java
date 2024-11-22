@@ -39,8 +39,8 @@ public class Controller {
     }
 
     // EFFECTS: calls AddHabit in habitTracker
-    public String reward(Habit h) {
-        return null; //stub
+    public String reward() {
+        return tracker.reward(selected);
     }
 
     // MODIFIES: this
