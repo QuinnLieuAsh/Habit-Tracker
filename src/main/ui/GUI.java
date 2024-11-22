@@ -7,6 +7,8 @@ import model.Habit;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -39,12 +41,20 @@ public class GUI {
     public GUI(Controller controller) {
         this.controller = controller;
     
+        loadDataOption();
 
         //BackGround
         JFrame appFrame = new JFrame("Habits");
         appFrame.setSize(500, 500);
         appFrame.setResizable(false);
-        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        appFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        appFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                saveDataOption();
+                System.exit(0);
+            }
+        });
         appFrame.setLayout(null);
 
         //Scrollable List of Habits
@@ -381,5 +391,29 @@ public class GUI {
                     goalPanel.revalidate();
                     goalPanel.repaint();
     }
+
+    public void loadDataOption() {
+        int response = JOptionPane.showConfirmDialog(null, 
+        "Load previous progress?", 
+        "Load progress", 
+        JOptionPane.YES_NO_OPTION);
+
+        if(response == 0) {
+            controller.loadProgress();
+        }
+    }
+
+    public void saveDataOption() {
+        int response = JOptionPane.showConfirmDialog(null, 
+        "Save you progress?", 
+        "Save progress", 
+        JOptionPane.YES_NO_OPTION);
+
+        if(response == JOptionPane.YES_NO_OPTION) {
+            controller.saveProgress();
+        }
+        System.exit(0);
+    }
+
 
 }
