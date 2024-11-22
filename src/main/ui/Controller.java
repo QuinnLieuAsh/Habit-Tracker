@@ -1,5 +1,7 @@
 package ui;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -9,15 +11,22 @@ import org.json.JSONObject;
 import model.Habit;
 import model.HabitTracker;
 import model.SimpleHabit;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 // A controller to comunicate between Model classes and GUI
 public class Controller {
+    private static final String JSON_STORE = "./data/habitTracker.json";
     private HabitTracker tracker;
     private Habit selected;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     public Controller(HabitTracker tracker) {
         this.tracker = tracker;
         selected = null;
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // MODIFIES: this
@@ -62,15 +71,9 @@ public class Controller {
     }
 
     // MODIFIES: this
-    // EFFECTS: calls resetCompletedHabits in habitTracker
-    public void resetCompletedHabits() {
-       //stub
-    }
-
-    // MODIFIES: this
     // EFFECTS: calls dailyReset in habitTracker
     public void dailyReset() {
-        //stub
+        tracker.dailyReset();
     }
 
     // EFFECTS: calls getAllHabits in habitTracker
@@ -78,24 +81,9 @@ public class Controller {
         return tracker.getAllHabits(); //stub
     }
 
-    // EFFECTS: calls getCompleted in habitTracker
-    public ArrayList<Habit> getCompleted() {
-        return null; //stub
-    }
-
     // EFFECTS: calls getTodo in habitTracker
     public ArrayList<Habit> getTodo() {
         return tracker.getTodo(); //stub
-    }
-
-    // EFFECTS: calls getCompletionDate in habitTracker
-    public LocalDate getCompletionDate() {
-        return null; //stub
-    }
-
-    // EFFECTS: calls toJson in habitTracker
-    public JSONObject toJson() {
-        return null; //stub
     }
 
     // EFFECTS: calls toJson in habitTracker
@@ -103,5 +91,29 @@ public class Controller {
         selected = h;
     }
 
-    
+    // MODIFIES: this
+    // EFFECTS: saves the habit tracker to file
+    public void saveProgress() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(tracker);
+            jsonWriter.close();
+            System.out.println("Saved HabitTracker to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads habit tracker from file
+    public void loadProgress() {
+        try {
+            tracker = jsonReader.read();
+            System.out.println("Loaded HabitTracker from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
 }
+
