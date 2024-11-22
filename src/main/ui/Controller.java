@@ -8,15 +8,39 @@ import org.json.JSONObject;
 
 import model.Habit;
 import model.HabitTracker;
+import model.SimpleHabit;
 
 // A controller to comunicate between Model classes and GUI
 public class Controller {
     private HabitTracker tracker;
+    private Habit selected;
+
+    public Controller(HabitTracker tracker) {
+        this.tracker = tracker;
+        selected = null;
+    }
 
     // MODIFIES: this
     // EFFECTS: calls AddHabit in habitTracker
-    public void addHabit(Habit h) {
-        //stub
+    public void addHabit(String habitName, int target, String rewardMessage) {
+        Habit newHab = new SimpleHabit(habitName, target, 1, rewardMessage);
+        tracker.addHabit(newHab);
+    }
+
+    //EFFECTS: returns the selected habit
+    public Habit getSelected() {
+        return selected;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: calls AddHabit in habitTracker
+    public void recordHab() {
+        tracker.recordHab(selected);
+    }
+
+    // EFFECTS: calls AddHabit in habitTracker
+    public String reward(Habit h) {
+        return null; //stub
     }
 
     // MODIFIES: this
@@ -33,8 +57,8 @@ public class Controller {
 
     // MODIFIRES: this
     // EFFECTS: calls removeHabit in habitTracker
-    public void removeHabit(Habit h) {
-        //stub
+    public void removeHabit() {
+        tracker.removeHabit(selected);
     }
 
     // MODIFIES: this
@@ -51,7 +75,7 @@ public class Controller {
 
     // EFFECTS: calls getAllHabits in habitTracker
     public ArrayList<Habit> getAllHabits() {
-        return null; //stub
+        return tracker.getAllHabits(); //stub
     }
 
     // EFFECTS: calls getCompleted in habitTracker
@@ -61,7 +85,7 @@ public class Controller {
 
     // EFFECTS: calls getTodo in habitTracker
     public ArrayList<Habit> getTodo() {
-        return null; //stub
+        return tracker.getTodo(); //stub
     }
 
     // EFFECTS: calls getCompletionDate in habitTracker
@@ -73,4 +97,11 @@ public class Controller {
     public JSONObject toJson() {
         return null; //stub
     }
+
+    // EFFECTS: calls toJson in habitTracker
+    public void select(Habit h) {
+        selected = h;
+    }
+
+    
 }
