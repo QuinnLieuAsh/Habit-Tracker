@@ -25,3 +25,15 @@ This project is of interest to me because I have struggles to keep a consistent 
 - As a user, I want to be able to create different categories of habits. 
 - As a user, I want to have the option to save my Habits and my progess. 
 - As a user, I want to be able to load my Habits from file. 
+
+
+# Instructions for End User
+
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by clicking Create New Habit Button. Which will 
+add the button do your habit list. It will also show a subset of all habits 
+as your todo habits.
+- You can generate the second required action related to the user story "adding multiple Xs to a Y" by clicking View All Habits button to see all of the habits within your tracker, including those which having been removed from todo because you have clicked Record Habit button. 
+- You can locate my visual component by Looking in the bottom right corner of app. The xp boost animation will play when Record Habit button is pressed. Additionally, upon reaching your set goal, you will see the reward message displayed on the panel. 
+- You can save the state of my application by clicking the exit button on the window. User will see a pop up window with the option to save. 
+- You can reload the state of my application by opening the app, user will be asked if they want to reload their saved progress. 
+
