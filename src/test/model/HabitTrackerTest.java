@@ -12,6 +12,8 @@ public class HabitTrackerTest {
     private Habit habit1;
     private Habit habit2;
     private Habit habit3;
+    private Habit habit4;
+
 
     @BeforeEach
     void runBefore() {
@@ -19,7 +21,7 @@ public class HabitTrackerTest {
         habit1 = new SimpleHabit("study", 30, 2, "yay");
         habit2 = new SimpleHabit("run", 30, 2, "speedy");
         habit3 = new SimpleHabit("sleep", 30, 2, "zzz");
-
+        habit4 = new SimpleHabit("sleep", 1, 1, "ya");
 
     }
 
@@ -28,6 +30,26 @@ public class HabitTrackerTest {
         assertEquals(0, testTracker.getAllHabits().size());
         assertEquals(0, testTracker.getCompleted().size());
         assertEquals(0, testTracker.getTodo().size());
+    }
+
+    @Test 
+    void testReward() {
+        testTracker.addHabit(habit4);
+        assertNull(testTracker.reward(habit4));
+        testTracker.recordHab(habit4);
+        assertEquals("ya", testTracker.reward(habit4));
+    }
+
+    @Test
+    void testRecordHabit() {
+        testTracker.addHabit(habit1);
+        assertEquals(1, testTracker.getAllHabits().size());
+        assertEquals(1, testTracker.getTodo().size());
+        testTracker.recordHab(habit1);
+        assertEquals(1, testTracker.getCompleted().size());
+        assertEquals(1, habit1.getProgress());
+        testTracker.recordHab(habit1);
+        assertEquals(1, habit1.getProgress());
     }
 
     @Test 

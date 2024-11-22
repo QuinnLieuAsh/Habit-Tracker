@@ -25,6 +25,26 @@ public class HabitTracker implements Writable {
 
     }
 
+    //MODIFIES:this 
+    //EFFECTS: Records a habit in the list of habits
+    public void recordHab(Habit h) {
+        if(todo.contains(h)) {
+            h.addProgress();
+            markCompleted(h);
+    }
+    }
+
+    //EFFECTS: Returns a habits reward message 
+    public String reward(Habit h) {
+        int progress = h.getProgress();
+            int goal = h.getLongGoal();
+        if (progress == goal) {
+            return h.getReward();
+        } else {
+            return null;
+        }
+    }
+
     // MODIFIES: this
     // EFFECTS: adds a habit to habits, and adds it to todo
     public void addHabit(Habit h) {
