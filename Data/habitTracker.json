@@ -1,54 +1,46 @@
 {
-    "todo": [
+    "todo": [],
+    "habits": [{
+        "reward": "yay",
+        "shortGoal": 2,
+        "progress": 1,
+        "longGoal": 2,
+        "title": "run",
+        "remaining": 1
+    }],
+    "completionDate": "2024-10-25",
+    "completed": [
         {
-            "reward": "higher",
-            "shortGoal": 7,
-            "progress": 0,
-            "longGoal": 7,
-            "title": "jump",
-            "remaining": 7
+            "reward": "ay",
+            "shortGoal": 1,
+            "progress": 1,
+            "longGoal": 1,
+            "title": "run",
+            "remaining": 0
         },
         {
-            "reward": "woot",
-            "shortGoal": 8,
-            "progress": 1,
-            "longGoal": 8,
-            "title": "party",
-            "remaining": 7
-        }
-    ],
-    "habits": [
-        {
-            "reward": "yay",
+            "reward": "hehe",
             "shortGoal": 5,
             "progress": 2,
             "longGoal": 5,
-            "title": "run",
+            "title": "study",
             "remaining": 3
         },
         {
-            "reward": "higher",
-            "shortGoal": 7,
-            "progress": 0,
-            "longGoal": 7,
-            "title": "jump",
-            "remaining": 7
+            "reward": "sdf",
+            "shortGoal": 543,
+            "progress": 1,
+            "longGoal": 543,
+            "title": "sf",
+            "remaining": 542
         },
         {
-            "reward": "woot",
-            "shortGoal": 8,
+            "reward": "yay",
+            "shortGoal": 2,
             "progress": 1,
-            "longGoal": 8,
-            "title": "party",
-            "remaining": 7
+            "longGoal": 2,
+            "title": "run",
+            "remaining": 1
         }
-    ],
-    "completed": [{
-        "reward": "yay",
-        "shortGoal": 5,
-        "progress": 2,
-        "longGoal": 5,
-        "title": "run",
-        "remaining": 3
-    }]
+    ]
 }
