@@ -52,18 +52,6 @@ public class Controller {
         return tracker.reward(selected);
     }
 
-    // MODIFIES: this
-    // EFFECTS: calls markCompleted in habitTracker
-    public void markCompleted(Habit h) {
-        //stub
-    }
-
-    // MODIFIES: this
-    // EFFECTS: calls markTodo in habitTracker
-    public void markTodo(Habit h) {
-        //stub
-    }
-
     // MODIFIRES: this
     // EFFECTS: calls removeHabit in habitTracker
     public void removeHabit() {
@@ -86,6 +74,7 @@ public class Controller {
         return tracker.getTodo(); //stub
     }
 
+    // MODIFIES: this
     // EFFECTS: calls toJson in habitTracker
     public void select(Habit h) {
         selected = h;
