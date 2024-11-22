@@ -5,14 +5,27 @@ import javax.swing.*;
 import model.Habit;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 // A GUI for the HabitTracker
 public class GUI {
     private Controller controller;
-    private DefaultListModel<Habit> habListModel;
+    private DefaultListModel<Habit> todoListModel;
+    private JPanel habitsPanel;
+    private JPanel namePanel;
+    private JPanel progressPanel;
+    private JPanel goalPanel;
+    private JLabel nameLabel;
+    private JLabel progressLabel;
+    private JLabel goalLabel;
 
-    public GUI() {
-        
+
+    public GUI(Controller controller) {
+        this.controller = controller;
+    
+
         //BackGround
         JFrame appFrame = new JFrame("Habits");
         appFrame.setSize(500, 500);
@@ -21,7 +34,7 @@ public class GUI {
         appFrame.setLayout(null);
 
         //Scrollable List of Habits
-        JPanel habitsPanel = new JPanel();
+        habitsPanel = new JPanel();
         
         habitsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         habitsPanel.setLayout( new FlowLayout(FlowLayout.LEFT));
@@ -66,14 +79,14 @@ public class GUI {
         buttonPanel.add(newHabButton);
 
         //Habit panel for information and stats
-        JLabel nameLabel = new JLabel("Habit:");
+        nameLabel = new JLabel("Habit:");
         nameLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 
-        JLabel progressLabel = new JLabel("Progress:");
+        progressLabel = new JLabel("Progress:");
         progressLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 
-        JLabel goalLabel = new JLabel("Goal:");
-        progressLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+        goalLabel = new JLabel("Goal:");
+        goalLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
@@ -81,11 +94,23 @@ public class GUI {
         infoPanel.setBackground(Color.lightGray);
         infoPanel.setBounds(280, 10, 200,250);
         infoPanel.add(nameLabel);
-        infoPanel.add(Box.createRigidArea(new Dimension(0,55)));
+        namePanel = new JPanel();
+        namePanel.setPreferredSize(new Dimension(180, 55));
+        namePanel.setBackground(Color.gray);
+        infoPanel.add(namePanel);
+        
         infoPanel.add(progressLabel);
-        infoPanel.add(Box.createRigidArea(new Dimension(0,55)));
+        progressPanel = new JPanel();
+        progressPanel.setPreferredSize(new Dimension(180, 55));
+        progressPanel.setBackground(Color.gray);
+        infoPanel.add(progressPanel);
+    
         infoPanel.add(goalLabel);
-        infoPanel.add(Box.createRigidArea(new Dimension(0,55)));
+        goalPanel = new JPanel();
+        goalPanel.setPreferredSize(new Dimension(180, 55));
+        goalPanel.setBackground(Color.gray);
+        infoPanel.add(goalPanel);
+       
         appFrame.add(infoPanel);
 
         //Panel for visual component
@@ -102,41 +127,89 @@ public class GUI {
         graphicPanel.add(linkLabel, BorderLayout.CENTER);
         appFrame.add(graphicPanel);
 
-
-        
-
-        // //Example Habit Buttons
-        // JButton exampleButton = new JButton("Hab1");
-        // exampleButton.setPreferredSize(new Dimension(100,100));
-        // JButton exampleButton2 = new JButton("Hab2");
-        // exampleButton2.setPreferredSize(new Dimension(100,100));
-        // JButton exampleButton3 = new JButton("Hab3");
-        // exampleButton3.setPreferredSize(new Dimension(100,100));
-        // JButton exampleButton4 = new JButton("Hab4");
-        // exampleButton4.setPreferredSize(new Dimension(100,100));
-
-        // JButton exampleButton5 = new JButton("Hab5");
-        // exampleButton5.setPreferredSize(new Dimension(100,100));
-
-        // JButton exampleButton6 = new JButton("Hab6");
-        // exampleButton6.setPreferredSize(new Dimension(100,100));
-
-        // JButton exampleButton7 = new JButton("Hab7");
-        // exampleButton7.setPreferredSize(new Dimension(100,100));
-
-        // JButton exampleButton8 = new JButton("Hab8");
-        // exampleButton8.setPreferredSize(new Dimension(100,100));
-        // habitsPanel.add(exampleButton);
-        // habitsPanel.add(exampleButton2);
-        // habitsPanel.add(exampleButton3);
-        // habitsPanel.add(exampleButton4);
-        // habitsPanel.add(exampleButton5);
-        // habitsPanel.add(exampleButton6);
-        // habitsPanel.add(exampleButton7);
-        // habitsPanel.add(exampleButton8);
-
         appFrame.add(scrollPane, BorderLayout.NORTH);
+
+        newHabButton.addActionListener(e -> createHabit());
+        recordButton.addActionListener(e -> recordHab());
+
+        updateTodoList();
+
         appFrame.setVisible(true);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: Updates the list of todo habits displayed.
+    public void updateTodoList() {
+        habitsPanel.removeAll();
+
+        ArrayList<Habit> habs = controller.getTodo();
+
+        for (Habit h : habs) {
+            JButton habitButton = new JButton(h.getTitle());
+            habitButton.setPreferredSize(new Dimension(100,100));
+            habitButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    controller.select(h);
+                    JLabel name = new JLabel(h.getTitle());
+                    JLabel prog = new JLabel(String.valueOf(h.getProgress()));
+                    JLabel goal = new JLabel(String.valueOf(h.getLongGoal()));
+
+                    namePanel.removeAll();
+                    progressPanel.removeAll();
+                    goalPanel.removeAll();  
+
+                    namePanel.add(name);
+                    progressPanel.add(prog);
+                    goalPanel.add(goal); 
+
+                    nameLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+                    progressLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+                    goalLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);  
+
+                    namePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    progressPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    goalPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+                    namePanel.revalidate();
+                    namePanel.repaint();
+                    progressPanel.revalidate();
+                    progressPanel.repaint();
+                    goalPanel.revalidate();
+                    goalPanel.repaint();
+                }
+                
+            });
+
+            habitsPanel.add(habitButton);
+        }
+        habitsPanel.revalidate();
+        habitsPanel.repaint();
+
+    }
+
+
+    private void createHabit() {
+        String name = JOptionPane.showInputDialog("Enter habit name:");
+        if (name != null && !name.trim().isEmpty()) {
+            String goalStr = JOptionPane.showInputDialog("Enter goal count:");
+            String reward = JOptionPane.showInputDialog("Enter reward message:");
+            try {
+                int goal = Integer.parseInt(goalStr);
+                controller.addHabit(name, goal, reward);
+                updateTodoList();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Invalid goal number.");
+            }
+        }
+    }
+
+    //EFFECTS: increments progress by one
+    private void recordHab() {
+        if (controller.getSelected() != null) {
+            controller.recordHab();
+            updateTodoList();
+        }
     }
 
 }
