@@ -7,6 +7,7 @@ import model.Habit;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 // A GUI for the HabitTracker
@@ -20,6 +21,19 @@ public class GUI {
     private JLabel nameLabel;
     private JLabel progressLabel;
     private JLabel goalLabel;
+    private JLabel xpGifLabel;
+    private JPanel graphicPanel;
+    private JLabel xpStaticLabel;
+    private JPanel buttonPanel;
+    private JButton recordButton;
+    private JButton viewAllButton;
+    private JButton newHabButton;
+    private JButton returnButton;
+    private JButton removeButton;
+    private JLabel todoLabel;
+    private JLabel allHabLabel;
+    private JPanel titlePanel;
+    private JLabel rewardLabel;
 
 
     public GUI(Controller controller) {
@@ -48,35 +62,46 @@ public class GUI {
         
 
         //Panel for Habit title
-        JLabel titleLabel = new JLabel("TODO:");
-        titleLabel.setVerticalAlignment(JLabel.CENTER);
-        titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        todoLabel = new JLabel("TODO:");
+        todoLabel.setVerticalAlignment(JLabel.CENTER);
+        todoLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        allHabLabel = new JLabel("All Habits:");
+        allHabLabel.setVerticalAlignment(JLabel.CENTER);
+        allHabLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        
   
-        JPanel titlePanel = new JPanel();
+        titlePanel = new JPanel();
         titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         titlePanel.setBackground(Color.lightGray);
         titlePanel.setBounds(20, 10, 250,30);
         titlePanel.setLayout(new BorderLayout());
-        titlePanel.add(titleLabel);
+        titlePanel.add(todoLabel);
         appFrame.add(titlePanel);
 
         //Panel for option buttons 
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel();
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         buttonPanel.setBackground(Color.lightGray);
         buttonPanel.setBounds(20, 210, 250,250);
         appFrame.add(buttonPanel);
 
         //Buttons for modifying habit tracker
-        JButton recordButton = new JButton("Record Habit");
+        recordButton = new JButton("Record Habit");
         recordButton.setPreferredSize(new Dimension(200,70));
         buttonPanel.add(recordButton);
-        JButton viewAllButton = new JButton("View All Habits");
+        viewAllButton = new JButton("View All Habits");
         viewAllButton.setPreferredSize(new Dimension(200,70));
         buttonPanel.add(viewAllButton);
-        JButton newHabButton = new JButton("Create New Habit");
+        newHabButton = new JButton("Create New Habit");
         newHabButton.setPreferredSize(new Dimension(200,70));
         buttonPanel.add(newHabButton);
+
+        returnButton = new JButton("Return");
+        returnButton.setPreferredSize(new Dimension(200,70));
+        removeButton = new JButton("Remove Habit");
+        removeButton.setPreferredSize(new Dimension(200,70));
 
         //Habit panel for information and stats
         nameLabel = new JLabel("Habit:");
@@ -114,27 +139,107 @@ public class GUI {
         appFrame.add(infoPanel);
 
         //Panel for visual component
+
+        //LINK IMAGE
         ImageIcon linkGif = new ImageIcon("src/main/ui/link.gif");
-        Image scaledImage = linkGif.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT); // Adjust width and height
+        Image scaledImage = linkGif.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
         ImageIcon scaledGif = new ImageIcon(scaledImage);
         JLabel linkLabel = new JLabel(scaledGif); 
 
-        JPanel graphicPanel = new JPanel();
+        //TREASURE IMAGE
+        ImageIcon xpGif = new ImageIcon("src/main/ui/xp-plus.gif");
+        Image scaledXP = xpGif.getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT);
+        ImageIcon smallXP = new ImageIcon(scaledXP);
+        xpGifLabel = new JLabel(smallXP); 
+
+        ImageIcon xpStatic = new ImageIcon("src/main/ui/xp_static.png");
+        Image scaledStatic = xpStatic.getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT);
+        ImageIcon smallStatic = new ImageIcon(scaledStatic);
+        xpStaticLabel = new JLabel(smallStatic); 
+
+
+
+        graphicPanel = new JPanel();
         graphicPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        graphicPanel.setBackground(Color.lightGray);
+        graphicPanel.setBackground(Color.WHITE);
         graphicPanel.setBounds(280, 270, 200,190);
         graphicPanel.setLayout(new BorderLayout());
-        graphicPanel.add(linkLabel, BorderLayout.CENTER);
+        graphicPanel.add(linkLabel, BorderLayout.EAST);
+        graphicPanel.add(xpStaticLabel, BorderLayout.WEST);
         appFrame.add(graphicPanel);
 
         appFrame.add(scrollPane, BorderLayout.NORTH);
 
         newHabButton.addActionListener(e -> createHabit());
+        viewAllButton.addActionListener(e -> viewAllHabits());
         recordButton.addActionListener(e -> recordHab());
+        returnButton.addActionListener(e -> viewTodo());
+        removeButton.addActionListener(e -> removeHabit());
 
+        
         updateTodoList();
 
         appFrame.setVisible(true);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: Updates the list to all habits, and shows new button panel options.
+    public void viewAllHabits() {
+        refreshButtonsForViewAll();
+        updateAllHabits();
+    }
+
+    //MODIFIES: this
+    //EFFECTS: Updates the list to all habits, and shows new button panel options.
+    public void viewTodo() {
+        refreshButtonsForTodo();
+        updateTodoList();
+    }
+    
+
+    //MODIFIES: this
+    //EFFECTS: shows new button panel options for allhabits list.
+    public void refreshButtonsForViewAll() {
+        buttonPanel.removeAll();
+        buttonPanel.add(returnButton);
+        buttonPanel.add(removeButton);
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
+    }
+    
+    //MODIFIES: this
+    //EFFECTS: shows new button panel options for allhabits list.
+    public void refreshButtonsForTodo() {
+        buttonPanel.removeAll();
+        buttonPanel.add(recordButton);
+        buttonPanel.add(viewAllButton);
+        buttonPanel.add(newHabButton);
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: Updates the list to all habits displayed.
+    public void updateAllHabits() {
+        habitsPanel.removeAll();
+
+        ArrayList<Habit> habs = controller.getAllHabits();
+
+        for (Habit h : habs) {
+            JButton habitButton = new JButton(h.getTitle());
+            habitButton.setPreferredSize(new Dimension(100,100));
+            habitButton.addActionListener(e -> showStats(h));
+
+            habitsPanel.add(habitButton);
+        }
+        habitsPanel.revalidate();
+        habitsPanel.repaint();
+
+        titlePanel.removeAll();
+        titlePanel.add(allHabLabel);
+        titlePanel.revalidate();
+        titlePanel.repaint();
     }
 
     //MODIFIES: this
@@ -147,10 +252,108 @@ public class GUI {
         for (Habit h : habs) {
             JButton habitButton = new JButton(h.getTitle());
             habitButton.setPreferredSize(new Dimension(100,100));
-            habitButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    controller.select(h);
+            habitButton.addActionListener(e -> showStats(h));
+
+            habitsPanel.add(habitButton);
+        }
+        habitsPanel.revalidate();
+        habitsPanel.repaint();
+
+        titlePanel.removeAll();
+        titlePanel.add(todoLabel);
+        titlePanel.revalidate();
+        titlePanel.repaint();
+
+    }
+
+    //MODIFIES: this
+    //EFFECTS: user creates a new habit
+    private void createHabit() {
+        String name = JOptionPane.showInputDialog("Enter habit name:");
+        if (name != null && !name.trim().isEmpty()) {
+            String goalStr = JOptionPane.showInputDialog("Enter goal count:");
+            String reward = JOptionPane.showInputDialog("Enter reward message:");
+            try {
+                int goal = Integer.parseInt(goalStr);
+                controller.addHabit(name, goal, reward);
+                updateTodoList();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Invalid goal number.");
+            }
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: user removes selected habit
+    public void removeHabit() {
+        controller.removeHabit();
+        updateAllHabits();
+    }
+
+    //MODIFIES: this
+    //EFFECT:Swaps images after animation
+    public void swap() {
+        graphicPanel.remove(xpGifLabel);
+        graphicPanel.add(xpStaticLabel, BorderLayout.WEST);
+        graphicPanel.revalidate();
+        graphicPanel.repaint();
+    }
+
+    //MODIFIES: this
+    //EFFECTS: increments progress by one
+    private void recordHab() {
+        if (controller.getSelected() != null) {
+            controller.recordHab();
+            JLabel prog = new JLabel(String.valueOf(controller.getSelected().getProgress()));
+            progressPanel.removeAll();
+            progressPanel.add(prog);
+            progressPanel.revalidate();
+            progressPanel.repaint();
+
+            graphicPanel.remove(xpStaticLabel);
+            graphicPanel.add(xpGifLabel, BorderLayout.WEST);
+            graphicPanel.revalidate();
+            graphicPanel.repaint();
+
+            Timer timer = new Timer(5000, event -> swap());
+            timer.setRepeats(false);
+            timer.start();
+            graphicPanel.revalidate();
+            graphicPanel.repaint();
+            checkGoalMet();
+
+            updateTodoList();
+        }
+    }
+
+    public void checkGoalMet() {
+        if (controller.reward() != null) {
+            rewardLabel = new JLabel(controller.reward() + "!");
+            graphicPanel.add(rewardLabel, BorderLayout.NORTH);
+            graphicPanel.revalidate();
+            graphicPanel.repaint();
+
+            Timer timer = new Timer(7000, event -> clearReward());
+            timer.setRepeats(false);
+            timer.start();
+            graphicPanel.revalidate();
+            graphicPanel.repaint();
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: removes the reward message from graphics panel
+    public void clearReward() {
+        graphicPanel.remove(rewardLabel);
+        graphicPanel.revalidate();
+        graphicPanel.repaint();
+    }
+
+    
+    //MODIFIES: this
+    //EFFECTS: refreshes the habit stats on the stat panel
+    public void showStats(Habit h) {
+        controller.select(h);
                     JLabel name = new JLabel(h.getTitle());
                     JLabel prog = new JLabel(String.valueOf(h.getProgress()));
                     JLabel goal = new JLabel(String.valueOf(h.getLongGoal()));
@@ -177,39 +380,6 @@ public class GUI {
                     progressPanel.repaint();
                     goalPanel.revalidate();
                     goalPanel.repaint();
-                }
-                
-            });
-
-            habitsPanel.add(habitButton);
-        }
-        habitsPanel.revalidate();
-        habitsPanel.repaint();
-
-    }
-
-
-    private void createHabit() {
-        String name = JOptionPane.showInputDialog("Enter habit name:");
-        if (name != null && !name.trim().isEmpty()) {
-            String goalStr = JOptionPane.showInputDialog("Enter goal count:");
-            String reward = JOptionPane.showInputDialog("Enter reward message:");
-            try {
-                int goal = Integer.parseInt(goalStr);
-                controller.addHabit(name, goal, reward);
-                updateTodoList();
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Invalid goal number.");
-            }
-        }
-    }
-
-    //EFFECTS: increments progress by one
-    private void recordHab() {
-        if (controller.getSelected() != null) {
-            controller.recordHab();
-            updateTodoList();
-        }
     }
 
 }
