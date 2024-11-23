@@ -25,19 +25,19 @@ public class HabitTracker implements Writable {
 
     }
 
-    //MODIFIES:this 
-    //EFFECTS: Records a habit in the list of habits
+    // MODIFIES:this
+    // EFFECTS: Records a habit in the list of habits
     public void recordHab(Habit h) {
-        if(todo.contains(h)) {
+        if (todo.contains(h)) {
             h.addProgress();
             markCompleted(h);
-    }
+        }
     }
 
-    //EFFECTS: Returns a habits reward message 
+    // EFFECTS: Returns a habits reward message
     public String reward(Habit h) {
         int progress = h.getProgress();
-            int goal = h.getLongGoal();
+        int goal = h.getLongGoal();
         if (progress == goal) {
             return h.getReward();
         } else {
@@ -92,18 +92,22 @@ public class HabitTracker implements Writable {
         completionDate = LocalDate.now();
     }
 
+    // EFFECTS: returns array list of habits
     public ArrayList<Habit> getAllHabits() {
         return new ArrayList<>(habits);
     }
 
+    // EFFECTS: returns array list of completed habits
     public ArrayList<Habit> getCompleted() {
         return new ArrayList<>(completed);
     }
 
+    // EFFECTS: returns array list of todo habits
     public ArrayList<Habit> getTodo() {
         return new ArrayList<>(todo);
     }
 
+    // EFFECTS: returns completion date
     public LocalDate getCompletionDate() {
         return completionDate;
     }
@@ -121,7 +125,7 @@ public class HabitTracker implements Writable {
         json.put("habits", habitsToJson());
         json.put("todo", todoToJson());
         json.put("completed", completedToJson());
-        json.put("completionDate", completionDate); 
+        json.put("completionDate", completionDate);
         return json;
     }
 
