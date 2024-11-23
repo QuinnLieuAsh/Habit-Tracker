@@ -37,13 +37,13 @@ public class GUI {
     private JPanel titlePanel;
     private JLabel rewardLabel;
 
-
     public GUI(Controller controller) {
         this.controller = controller;
-    
+
+        controller.dailyReset();
         loadDataOption();
 
-        //BackGround
+        // BackGround
         JFrame appFrame = new JFrame("Habits");
         appFrame.setSize(500, 500);
         appFrame.setResizable(false);
@@ -57,21 +57,19 @@ public class GUI {
         });
         appFrame.setLayout(null);
 
-        //Scrollable List of Habits
+        // Scrollable List of Habits
         habitsPanel = new JPanel();
-        
+
         habitsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        habitsPanel.setLayout( new FlowLayout(FlowLayout.LEFT));
+        habitsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JScrollPane scrollPane = new JScrollPane(habitsPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(250, 100));
-        scrollPane.setBounds(20, 50, 250,150);
+        scrollPane.setBounds(20, 50, 250, 150);
 
-        
-
-        //Panel for Habit title
+        // Panel for Habit title
         todoLabel = new JLabel("TODO:");
         todoLabel.setVerticalAlignment(JLabel.CENTER);
         todoLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -80,40 +78,38 @@ public class GUI {
         allHabLabel.setVerticalAlignment(JLabel.CENTER);
         allHabLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        
-  
         titlePanel = new JPanel();
         titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         titlePanel.setBackground(Color.lightGray);
-        titlePanel.setBounds(20, 10, 250,30);
+        titlePanel.setBounds(20, 10, 250, 30);
         titlePanel.setLayout(new BorderLayout());
         titlePanel.add(todoLabel);
         appFrame.add(titlePanel);
 
-        //Panel for option buttons 
+        // Panel for option buttons
         buttonPanel = new JPanel();
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         buttonPanel.setBackground(Color.lightGray);
-        buttonPanel.setBounds(20, 210, 250,250);
+        buttonPanel.setBounds(20, 210, 250, 250);
         appFrame.add(buttonPanel);
 
-        //Buttons for modifying habit tracker
+        // Buttons for modifying habit tracker
         recordButton = new JButton("Record Habit");
-        recordButton.setPreferredSize(new Dimension(200,70));
+        recordButton.setPreferredSize(new Dimension(200, 70));
         buttonPanel.add(recordButton);
         viewAllButton = new JButton("View All Habits");
-        viewAllButton.setPreferredSize(new Dimension(200,70));
+        viewAllButton.setPreferredSize(new Dimension(200, 70));
         buttonPanel.add(viewAllButton);
         newHabButton = new JButton("Create New Habit");
-        newHabButton.setPreferredSize(new Dimension(200,70));
+        newHabButton.setPreferredSize(new Dimension(200, 70));
         buttonPanel.add(newHabButton);
 
         returnButton = new JButton("Return");
-        returnButton.setPreferredSize(new Dimension(200,70));
+        returnButton.setPreferredSize(new Dimension(200, 70));
         removeButton = new JButton("Remove Habit");
-        removeButton.setPreferredSize(new Dimension(200,70));
+        removeButton.setPreferredSize(new Dimension(200, 70));
 
-        //Habit panel for information and stats
+        // Habit panel for information and stats
         nameLabel = new JLabel("Habit:");
         nameLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 
@@ -127,57 +123,53 @@ public class GUI {
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         infoPanel.setBackground(Color.lightGray);
-        infoPanel.setBounds(280, 10, 200,250);
+        infoPanel.setBounds(280, 10, 200, 250);
         infoPanel.add(nameLabel);
         namePanel = new JPanel();
         namePanel.setPreferredSize(new Dimension(180, 55));
         namePanel.setBackground(Color.gray);
         infoPanel.add(namePanel);
-        
+
         infoPanel.add(progressLabel);
         progressPanel = new JPanel();
         progressPanel.setPreferredSize(new Dimension(180, 55));
         progressPanel.setBackground(Color.gray);
         infoPanel.add(progressPanel);
-    
+
         infoPanel.add(goalLabel);
         goalPanel = new JPanel();
         goalPanel.setPreferredSize(new Dimension(180, 55));
         goalPanel.setBackground(Color.gray);
         infoPanel.add(goalPanel);
-       
+
         appFrame.add(infoPanel);
 
-        //Panel for visual component
-
-        //LINK IMAGE
+        // LINK IMAGE
         ImageIcon linkGif = new ImageIcon("src/main/ui/link.gif");
         Image scaledImage = linkGif.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
         ImageIcon scaledGif = new ImageIcon(scaledImage);
-        JLabel linkLabel = new JLabel(scaledGif); 
+        JLabel linkLabel = new JLabel(scaledGif);
 
-        //TREASURE IMAGE
+        // TREASURE IMAGE
         ImageIcon xpGif = new ImageIcon("src/main/ui/xp-plus.gif");
         Image scaledXP = xpGif.getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT);
         ImageIcon smallXP = new ImageIcon(scaledXP);
-        xpGifLabel = new JLabel(smallXP); 
+        xpGifLabel = new JLabel(smallXP);
 
         ImageIcon xpStatic = new ImageIcon("src/main/ui/xp_static.png");
         Image scaledStatic = xpStatic.getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT);
         ImageIcon smallStatic = new ImageIcon(scaledStatic);
-        xpStaticLabel = new JLabel(smallStatic); 
+        xpStaticLabel = new JLabel(smallStatic);
 
-
-
+        // Panel for visual components
         graphicPanel = new JPanel();
         graphicPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         graphicPanel.setBackground(Color.WHITE);
-        graphicPanel.setBounds(280, 270, 200,190);
+        graphicPanel.setBounds(280, 270, 200, 190);
         graphicPanel.setLayout(new BorderLayout());
         graphicPanel.add(linkLabel, BorderLayout.EAST);
         graphicPanel.add(xpStaticLabel, BorderLayout.WEST);
         appFrame.add(graphicPanel);
-
         appFrame.add(scrollPane, BorderLayout.NORTH);
 
         newHabButton.addActionListener(e -> createHabit());
@@ -186,29 +178,27 @@ public class GUI {
         returnButton.addActionListener(e -> viewTodo());
         removeButton.addActionListener(e -> removeHabit());
 
-        
         updateTodoList();
 
         appFrame.setVisible(true);
     }
 
-    //MODIFIES: this
-    //EFFECTS: Updates the list to all habits, and shows new button panel options.
+    // MODIFIES: this
+    // EFFECTS: Updates the list to all habits, and shows new button panel options.
     public void viewAllHabits() {
         refreshButtonsForViewAll();
         updateAllHabits();
     }
 
-    //MODIFIES: this
-    //EFFECTS: Updates the list to all habits, and shows new button panel options.
+    // MODIFIES: this
+    // EFFECTS: Updates the list to all habits, and shows new button panel options.
     public void viewTodo() {
         refreshButtonsForTodo();
         updateTodoList();
     }
-    
 
-    //MODIFIES: this
-    //EFFECTS: shows new button panel options for allhabits list.
+    // MODIFIES: this
+    // EFFECTS: shows new button panel options for allhabits list.
     public void refreshButtonsForViewAll() {
         buttonPanel.removeAll();
         buttonPanel.add(returnButton);
@@ -216,9 +206,9 @@ public class GUI {
         buttonPanel.revalidate();
         buttonPanel.repaint();
     }
-    
-    //MODIFIES: this
-    //EFFECTS: shows new button panel options for allhabits list.
+
+    // MODIFIES: this
+    // EFFECTS: shows new button panel options for allhabits list.
     public void refreshButtonsForTodo() {
         buttonPanel.removeAll();
         buttonPanel.add(recordButton);
@@ -228,9 +218,8 @@ public class GUI {
         buttonPanel.repaint();
     }
 
-
-    //MODIFIES: this
-    //EFFECTS: Updates the list to all habits displayed.
+    // MODIFIES: this
+    // EFFECTS: Updates the list to all habits displayed.
     public void updateAllHabits() {
         habitsPanel.removeAll();
 
@@ -238,7 +227,7 @@ public class GUI {
 
         for (Habit h : habs) {
             JButton habitButton = new JButton(h.getTitle());
-            habitButton.setPreferredSize(new Dimension(100,100));
+            habitButton.setPreferredSize(new Dimension(100, 100));
             habitButton.addActionListener(e -> showStats(h));
 
             habitsPanel.add(habitButton);
@@ -252,8 +241,8 @@ public class GUI {
         titlePanel.repaint();
     }
 
-    //MODIFIES: this
-    //EFFECTS: Updates the list of todo habits displayed.
+    // MODIFIES: this
+    // EFFECTS: Updates the list of todo habits displayed.
     public void updateTodoList() {
         habitsPanel.removeAll();
 
@@ -261,7 +250,7 @@ public class GUI {
 
         for (Habit h : habs) {
             JButton habitButton = new JButton(h.getTitle());
-            habitButton.setPreferredSize(new Dimension(100,100));
+            habitButton.setPreferredSize(new Dimension(100, 100));
             habitButton.addActionListener(e -> showStats(h));
 
             habitsPanel.add(habitButton);
@@ -276,8 +265,8 @@ public class GUI {
 
     }
 
-    //MODIFIES: this
-    //EFFECTS: user creates a new habit
+    // MODIFIES: this
+    // EFFECTS: user creates a new habit
     private void createHabit() {
         String name = JOptionPane.showInputDialog("Enter habit name:");
         if (name != null && !name.trim().isEmpty()) {
@@ -293,15 +282,15 @@ public class GUI {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: user removes selected habit
+    // MODIFIES: this
+    // EFFECTS: user removes selected habit
     public void removeHabit() {
         controller.removeHabit();
         updateAllHabits();
     }
 
-    //MODIFIES: this
-    //EFFECT:Swaps images after animation
+    // MODIFIES: this
+    // EFFECT:Swaps images after animation
     public void swap() {
         graphicPanel.remove(xpGifLabel);
         graphicPanel.add(xpStaticLabel, BorderLayout.WEST);
@@ -309,8 +298,8 @@ public class GUI {
         graphicPanel.repaint();
     }
 
-    //MODIFIES: this
-    //EFFECTS: increments progress by one
+    // MODIFIES: this
+    // EFFECTS: increments progress by one
     private void recordHab() {
         if (controller.getSelected() != null) {
             controller.recordHab();
@@ -336,6 +325,8 @@ public class GUI {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: Displays reward if goal is met
     public void checkGoalMet() {
         if (controller.reward() != null) {
             rewardLabel = new JLabel(controller.reward() + "!");
@@ -351,69 +342,71 @@ public class GUI {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: removes the reward message from graphics panel
+    // MODIFIES: this
+    // EFFECTS: removes the reward message from graphics panel
     public void clearReward() {
         graphicPanel.remove(rewardLabel);
         graphicPanel.revalidate();
         graphicPanel.repaint();
     }
 
-    
-    //MODIFIES: this
-    //EFFECTS: refreshes the habit stats on the stat panel
+    // MODIFIES: this
+    // EFFECTS: refreshes the habit stats on the stat panel
     public void showStats(Habit h) {
         controller.select(h);
-                    JLabel name = new JLabel(h.getTitle());
-                    JLabel prog = new JLabel(String.valueOf(h.getProgress()));
-                    JLabel goal = new JLabel(String.valueOf(h.getLongGoal()));
+        JLabel name = new JLabel(h.getTitle());
+        JLabel prog = new JLabel(String.valueOf(h.getProgress()));
+        JLabel goal = new JLabel(String.valueOf(h.getLongGoal()));
 
-                    namePanel.removeAll();
-                    progressPanel.removeAll();
-                    goalPanel.removeAll();  
+        namePanel.removeAll();
+        progressPanel.removeAll();
+        goalPanel.removeAll();
 
-                    namePanel.add(name);
-                    progressPanel.add(prog);
-                    goalPanel.add(goal); 
+        namePanel.add(name);
+        progressPanel.add(prog);
+        goalPanel.add(goal);
 
-                    nameLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
-                    progressLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
-                    goalLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);  
+        nameLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+        progressLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+        goalLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 
-                    namePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-                    progressPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-                    goalPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        namePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        progressPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        goalPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-                    namePanel.revalidate();
-                    namePanel.repaint();
-                    progressPanel.revalidate();
-                    progressPanel.repaint();
-                    goalPanel.revalidate();
-                    goalPanel.repaint();
+        namePanel.revalidate();
+        namePanel.repaint();
+        progressPanel.revalidate();
+        progressPanel.repaint();
+        goalPanel.revalidate();
+        goalPanel.repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: allows user to load saved data
     public void loadDataOption() {
-        int response = JOptionPane.showConfirmDialog(null, 
-        "Load previous progress?", 
-        "Load progress", 
-        JOptionPane.YES_NO_OPTION);
+        int response = JOptionPane.showConfirmDialog(null,
+                "Load previous progress?",
+                "Load progress",
+                JOptionPane.YES_NO_OPTION);
 
-        if(response == 0) {
+        if (response == 0) {
             controller.loadProgress();
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: allows user to save current data
     public void saveDataOption() {
-        int response = JOptionPane.showConfirmDialog(null, 
-        "Save you progress?", 
-        "Save progress", 
-        JOptionPane.YES_NO_OPTION);
+        int response = JOptionPane.showConfirmDialog(null,
+                "Save you progress?",
+                "Save progress",
+                JOptionPane.YES_NO_OPTION);
 
-        if(response == JOptionPane.YES_NO_OPTION) {
+        if (response == JOptionPane.YES_NO_OPTION) {
             controller.saveProgress();
         }
         System.exit(0);
     }
-
 
 }
