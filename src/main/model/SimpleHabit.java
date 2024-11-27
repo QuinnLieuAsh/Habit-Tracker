@@ -11,6 +11,8 @@ public class SimpleHabit extends Habit {
     // EFFECTS: increases the progress of habit
     public void addProgress() {
         progress++;
+        EventLog.getInstance().logEvent(new Event("Habit: "
+                + getTitle() + " recorded. Current progress: " + getProgress()));
         remaining--;
         if (progress > longGoal) {
             progress = 0;

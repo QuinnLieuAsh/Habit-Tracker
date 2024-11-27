@@ -39,6 +39,7 @@ public class HabitTracker implements Writable {
         int progress = h.getProgress();
         int goal = h.getLongGoal();
         if (progress == goal) {
+            EventLog.getInstance().logEvent(new Event("Reward message: " + h.getReward() + " was displayed to user."));
             return h.getReward();
         } else {
             return null;
@@ -50,6 +51,7 @@ public class HabitTracker implements Writable {
     public void addHabit(Habit h) {
         habits.add(h);
         todo.add(h);
+        EventLog.getInstance().logEvent(new Event("New Habit: " + h.getTitle() + " was added to your habits."));
     }
 
     // MODIFIES: this
@@ -57,6 +59,8 @@ public class HabitTracker implements Writable {
     public void markCompleted(Habit h) {
         todo.remove(h);
         completed.add(h);
+        EventLog.getInstance().logEvent(new Event("Habit: " + h.getTitle() + " was added list of completed habits."));
+
     }
 
     // MODIFIES: this
@@ -64,6 +68,8 @@ public class HabitTracker implements Writable {
     public void markTodo(Habit h) {
         completed.remove(h);
         todo.add(h);
+        EventLog.getInstance().logEvent(new Event("Habit: " + h.getTitle() + " was added list of TODO habits."));
+
     }
 
     // MODIFIRES: this
@@ -72,6 +78,8 @@ public class HabitTracker implements Writable {
         habits.remove(h);
         completed.remove(h);
         todo.remove(h);
+        EventLog.getInstance().logEvent(new Event("Habit: " + h.getTitle() + " was removed from your habits."));
+
     }
 
     // MODIFIES: this
@@ -81,33 +89,32 @@ public class HabitTracker implements Writable {
         completed.clear();
         todo.clear();
         todo.addAll(habits);
+        EventLog.getInstance().logEvent(new Event("TODO list was reset."));
+
     }
 
     // MODIFIES: this
     // EFFECTS: resets the todo list each new day
     public void dailyReset() {
         if (!completionDate.equals(LocalDate.now())) {
+            EventLog.getInstance().logEvent(new Event("New day detected."));
             resetCompletedHabits();
         }
         completionDate = LocalDate.now();
     }
 
-    // EFFECTS: returns array list of habits
     public ArrayList<Habit> getAllHabits() {
         return new ArrayList<>(habits);
     }
 
-    // EFFECTS: returns array list of completed habits
     public ArrayList<Habit> getCompleted() {
         return new ArrayList<>(completed);
     }
 
-    // EFFECTS: returns array list of todo habits
     public ArrayList<Habit> getTodo() {
         return new ArrayList<>(todo);
     }
 
-    // EFFECTS: returns completion date
     public LocalDate getCompletionDate() {
         return completionDate;
     }
