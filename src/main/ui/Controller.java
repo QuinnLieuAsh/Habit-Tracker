@@ -52,6 +52,13 @@ public class Controller {
         return tracker.reward(selected);
     }
 
+    // EFFECTS: Checks if selected has reached full progress
+    public boolean checkProgress() {
+        int progress = selected.getProgress();
+        int goal = selected.getLongGoal();
+        return progress == goal;
+    }
+
     // MODIFIRES: this
     // EFFECTS: calls removeHabit in habitTracker
     public void removeHabit() {
