@@ -37,3 +37,38 @@ as your todo habits.
 - You can save the state of my application by clicking the exit button on the window. User will see a pop up window with the option to save. 
 - You can reload the state of my application by opening the app, user will be asked if they want to reload their saved progress. 
 
+# Phase 4: Task 2
+Tue Nov 26 22:57:06 PST 2024
+New Habit: run was added to your habits.
+
+
+Tue Nov 26 22:57:16 PST 2024
+New Habit: study was added to your habits.
+
+
+Tue Nov 26 22:57:19 PST 2024
+Habit: study recorded. Current progress: 1
+
+
+Tue Nov 26 22:57:19 PST 2024
+Habit: study was added list of completed habits.
+
+
+Tue Nov 26 22:57:22 PST 2024
+Habit: run recorded. Current progress: 1
+
+
+Tue Nov 26 22:57:22 PST 2024
+Habit: run was added list of completed habits.
+
+
+Tue Nov 26 22:57:22 PST 2024
+Reward message: zoooom was displayed to user.
+
+
+Tue Nov 26 22:57:25 PST 2024
+Habit: run was removed from your habits.
+
+
+Tue Nov 26 22:57:26 PST 2024
+Habit: study was removed from your habits.
