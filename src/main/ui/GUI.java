@@ -2,6 +2,8 @@ package ui;
 
 import javax.swing.*;
 
+import model.Event;
+import model.EventLog;
 import model.Habit;
 
 import java.awt.*;
@@ -11,6 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 // A GUI for the HabitTracker
 public class GUI {
@@ -37,10 +40,10 @@ public class GUI {
     private JPanel titlePanel;
     private JLabel rewardLabel;
 
+    @SuppressWarnings("methodlength")
     public GUI(Controller controller) {
         this.controller = controller;
 
-        controller.dailyReset();
         loadDataOption();
 
         // BackGround
@@ -52,6 +55,7 @@ public class GUI {
             @Override
             public void windowClosing(WindowEvent e) {
                 saveDataOption();
+                printLog();
                 System.exit(0);
             }
         });
@@ -144,6 +148,8 @@ public class GUI {
 
         appFrame.add(infoPanel);
 
+        // Panel for visual component
+
         // LINK IMAGE
         ImageIcon linkGif = new ImageIcon("src/main/ui/link.gif");
         Image scaledImage = linkGif.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
@@ -161,7 +167,6 @@ public class GUI {
         ImageIcon smallStatic = new ImageIcon(scaledStatic);
         xpStaticLabel = new JLabel(smallStatic);
 
-        // Panel for visual components
         graphicPanel = new JPanel();
         graphicPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         graphicPanel.setBackground(Color.WHITE);
@@ -170,6 +175,7 @@ public class GUI {
         graphicPanel.add(linkLabel, BorderLayout.EAST);
         graphicPanel.add(xpStaticLabel, BorderLayout.WEST);
         appFrame.add(graphicPanel);
+
         appFrame.add(scrollPane, BorderLayout.NORTH);
 
         newHabButton.addActionListener(e -> createHabit());
@@ -325,10 +331,8 @@ public class GUI {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: Displays reward if goal is met
     public void checkGoalMet() {
-        if (controller.reward() != null) {
+        if (controller.checkProgress()) {
             rewardLabel = new JLabel(controller.reward() + "!");
             graphicPanel.add(rewardLabel, BorderLayout.NORTH);
             graphicPanel.revalidate();
@@ -382,8 +386,6 @@ public class GUI {
         goalPanel.repaint();
     }
 
-    // MODIFIES: this
-    // EFFECTS: allows user to load saved data
     public void loadDataOption() {
         int response = JOptionPane.showConfirmDialog(null,
                 "Load previous progress?",
@@ -395,8 +397,6 @@ public class GUI {
         }
     }
 
-    // MODIFIES: this
-    // EFFECTS: allows user to save current data
     public void saveDataOption() {
         int response = JOptionPane.showConfirmDialog(null,
                 "Save you progress?",
@@ -406,7 +406,15 @@ public class GUI {
         if (response == JOptionPane.YES_NO_OPTION) {
             controller.saveProgress();
         }
+        printLog();
         System.exit(0);
     }
 
+    public void printLog() {
+        EventLog el = EventLog.getInstance();
+        Iterator<Event> eventIterator = el.iterator();
+        while (eventIterator.hasNext()) {
+            System.out.println(eventIterator.next().toString() + "\n\n");
+        }
+    }
 }
