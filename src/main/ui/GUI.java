@@ -18,7 +18,6 @@ import java.util.Iterator;
 // A GUI for the HabitTracker
 public class GUI {
     private Controller controller;
-    private DefaultListModel<Habit> todoListModel;
     private JPanel habitsPanel;
     private JPanel namePanel;
     private JPanel progressPanel;
