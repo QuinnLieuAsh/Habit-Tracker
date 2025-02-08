@@ -65,6 +65,7 @@ public class GUI {
 
         habitsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         habitsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        habitsPanel.setBackground(Color.LIGHT_GRAY);
 
         JScrollPane scrollPane = new JScrollPane(habitsPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
@@ -145,7 +146,14 @@ public class GUI {
         goalPanel.setBackground(Color.gray);
         infoPanel.add(goalPanel);
 
+        //Progress bar for user stats
+        JProgressBar progressBar = new JProgressBar(0, 100);
+        infoPanel.add(progressBar);
+        //TODO: add the implementation for a progress bar in the refresh stats methods.
+
         appFrame.add(infoPanel);
+
+
 
         // Panel for visual component
 
@@ -257,6 +265,7 @@ public class GUI {
             JButton habitButton = new JButton(h.getTitle());
             habitButton.setPreferredSize(new Dimension(100, 100));
             habitButton.addActionListener(e -> showStats(h));
+            
 
             habitsPanel.add(habitButton);
         }

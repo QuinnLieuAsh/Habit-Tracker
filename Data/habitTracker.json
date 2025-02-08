@@ -1,38 +1,32 @@
 {
     "todo": [],
-    "habits": [{
-        "reward": "yay",
-        "shortGoal": 2,
-        "progress": 1,
-        "longGoal": 2,
-        "title": "run",
-        "remaining": 1
-    }],
-    "completionDate": "2024-10-25",
-    "completed": [
+    "habits": [
         {
-            "reward": "ay",
+            "reward": "yay",
+            "shortGoal": 2,
+            "progress": 1,
+            "longGoal": 2,
+            "title": "run",
+            "remaining": 1
+        },
+        {
+            "reward": "girk boss",
             "shortGoal": 1,
             "progress": 1,
             "longGoal": 1,
-            "title": "run",
+            "title": "slay",
             "remaining": 0
-        },
+        }
+    ],
+    "completionDate": "2024-12-19",
+    "completed": [
         {
-            "reward": "hehe",
-            "shortGoal": 5,
-            "progress": 2,
-            "longGoal": 5,
-            "title": "study",
-            "remaining": 3
-        },
-        {
-            "reward": "sdf",
-            "shortGoal": 543,
+            "reward": "yay",
+            "shortGoal": 10,
             "progress": 1,
-            "longGoal": 543,
-            "title": "sf",
-            "remaining": 542
+            "longGoal": 10,
+            "title": "run",
+            "remaining": 9
         },
         {
             "reward": "yay",
@@ -41,6 +35,14 @@
             "longGoal": 2,
             "title": "run",
             "remaining": 1
+        },
+        {
+            "reward": "girk boss",
+            "shortGoal": 1,
+            "progress": 1,
+            "longGoal": 1,
+            "title": "slay",
+            "remaining": 0
         }
     ]
 }
